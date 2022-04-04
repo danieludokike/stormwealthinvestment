@@ -1,0 +1,46 @@
+{% extends '../infinityapp/index.html' %}
+{% load static %}
+
+{% block title %} Withdrawal Request Sent {% endblock title %}
+
+{% block content %}
+
+<br><br><br><br>
+<section class="main-container" id="main-container">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h2 class="section-title">ADMIN HAS RECEIVED YOUR WITHDRAWAL REQUEST</h2>
+            </div>
+        </div>
+        <!-- Title row end-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ts-col-inner">
+                        <div class="ts-contact-content">
+                          <img src="{% static 'images/check-gif.gif' %}" height="200" width="100%" alt="Apex Grant Investment" srcset="">
+                            <p class="ts-contact-title text-success"> 
+                              <h1>Congratulations, Investor {{request.user}}</h1>
+                              <p>Your email has been sent to the admin and this withdrawal request is to be processed within 24 working hours.
+                                  Please endeavour to request for this email again if it is not processed withing 24 working. Your request will not be processed
+                                  if you have not made any payment and requesting for withdrawal. This may also lead to blocking of your account.
+                                  Once again, Congratulations Investor {{request.user}}. Warm Regards
+                              </p>
+                              </p>
+                              <div class="btn-box">
+                                <a class="btn btn-danger" href="{% url 'userdashboard:user_profile' %}" class="btn1">
+                                  Back To Profile
+                                </a>
+                              </div>
+                        <!-- Contact content end-->
+                    </div>
+                    <!-- End Contact info 1-->
+                </div>
+            </div>
+        </div>
+        <!-- Row End-->
+    </div>
+    <!-- container end-->
+    <div class="gap-60"></div>
+</section>
+{% endblock content %}

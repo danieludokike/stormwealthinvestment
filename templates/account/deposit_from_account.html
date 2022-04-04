@@ -1,0 +1,91 @@
+{% extends '../infinityapp/index.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} DEPOSIT FROM ACCOUNT BALANCE{% endblock title %}
+
+
+{% block content %}
+
+<div>
+  <div class="header-bg header-bg-1"></div>
+  <div class="position-fixed overflow-hidden" style="z-index: 2000;top: 0; right: 0">
+    <div id="google-translate-element"></div>
+  </div>
+  <div class="fixed-top">
+    <div class="appbar-area sticky-black">
+      <div class="container">
+        <div class="appbar-container">
+          <div class="appbar-item appbar-page-title mx-auto mt-5">
+            <h3>DEPOSIT FROM ACCOUNT BALANCE</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="body-content body-content-lg">
+    <div class="container">
+      <div class="container">
+
+        <div class="page-header">
+          <div class="page-header-title page-header-item">
+            <h3>DEPOSIT FROM ACCOUNT BALANCE</h3>
+          </div>
+        </div>
+
+        <br />
+        {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-danger text-center" role="alert">
+          {{ msg }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <br>
+
+
+        <div class="authentication-form pb-15">
+          <form action="{% url 'userdashboard:make-deposit-from-account' %}" method="post" novalidate>
+            {% csrf_token %}
+            <div class="form-group pb-15">
+              <label>Selected Plan During Payment</label>
+              <div class="input-group">
+                <input type="text" class="form-control" name="plan_type" value="{{plan_type}}" id="id_wallet_address" readonly>
+              </div>
+            </div>
+
+            <div class="form-group pb-15">
+              <label>Amount to be Re-Invested</label>
+              <div class="input-group">
+                <input type="number" class="form-control" name="amount" value="{{amount}}" readonly>
+              </div>
+            </div>
+
+            <div class="form-group pb-15">
+              <label>Current % Earning Rate</label>
+              <div class="input-group">
+                <input type="text" class="form-control" name="percentage" value="{{percentage}}" readonly>
+              </div>
+            </div>
+
+            <div class="form-group pb-15">
+              <label>(%) Earning for 7 days</label>
+              <div class="input-group">
+                <input type="text" class="form-control" name="percentage" value="{{percentage}}" readonly>
+              </div>
+            </div>
+
+            <button class="btn main-btn main-btn-lg full-width mb-10">PROCEED TO MAKE PAYMENT</button>
+              </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+{% endblock content %}

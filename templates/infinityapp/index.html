@@ -1,0 +1,1036 @@
+{% load static %}
+{% load widget_tweaks %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <!--
+     Basic Page Needs
+     ==================================================
+     -->
+   <meta charset="utf-8">
+   <title>Stormwealth Investment | {% block title %} Home {% endblock title %}</title>
+   <!--
+     Mobile Specific Metas
+     ==================================================
+     -->
+   <meta name="referrer" content="no-referrer-when-downgrade">
+   <meta name="theme-color" content="#2154cf" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <link rel="icon" href="{% static 'images/StormWealth logo.png' %}" type="image/png" sizes="16x16">
+   <meta name="description" content="Stormwealth Investment is an investment firm located at Copenhagen, Denmark with company number: #2420127; providing a stable inflow of profits, as we are always researching for new, more guaranteed and profitable operational methods. “We believe in the future of cryptocurrency, because it entered the exchange markets on a strong note. Success in this sphere is assured to everyone, who gets the hang of managing risks in this sphere. ” The activity of the real Company is the sustainable Management of participations in any Real Estate, shipping, Financial, Commercial and also deal with trading and mining on top Government bonds and recycling of waste products and oil ribs to pay their Investors.
+   Stormwealth Investment has been in existence since 25th of July, 2019 and we are here to stay...">
+   <meta name="keywords" content="Investment, cryptocurrency, Trading, Investors, Clients "
+   <meta name="author" content="Devs">
+
+   {% if request.path == "/account/user/account-details/" %}
+   <meta name="viewport" content="width=1000" />
+   {% else %}
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+   {% endif %}
+
+   <!-- CSS
+    ================================================== -->
+
+   <!-- Bootstrap -->
+   <link rel="stylesheet" href="{% static 'static/css/bootstrap.min.css' %}">
+   <!-- FontAwesome -->
+   <link rel="stylesheet" href="{% static 'static/css/font-awesome.min.css' %}">
+   <!-- Morris CSS -->
+   <link rel="stylesheet" href="{% static 'static/css/morris.css' %}">
+   <!-- Icon font -->
+   <link rel="stylesheet" href="{% static 'static/css/icon-font.css' %}">
+   <!-- Animation -->
+   <link rel="stylesheet" href="{% static 'static/css/animate.css' %}">
+   <!-- Owl Carousel -->
+   <link rel="stylesheet" href="{% static 'static/css/owl.carousel.min.css' %}">
+   <!-- Owl Theme -->
+   <link rel="stylesheet" href="{% static 'static/css/owl.theme.default.min.css' %}">
+   <!-- Colorbox -->
+   <link rel="stylesheet" href="{% static 'static/css/colorbox.css' %}">
+   <!-- Template styles-->
+   <link rel="stylesheet" href="{% static 'static/css/style.css' %}">
+   <!-- Responsive styles-->
+   <link rel="stylesheet" href="{% static 'static/css/responsive.css' %}">
+
+   <link rel="stylesheet" href="{% static 'css/app.css' %}" type="text/css" media="all" />
+   <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">
+</head>
+
+<body>
+
+   <div class="preloader">
+      <div class="preloader-wrapper">
+         <div class="preloader-content">
+            <h3>LOADING ...</h3>
+         </div>
+      </div>
+   </div>
+
+   {% if request.path == "/account/user/dashboard/" %}
+   <!-- DO NOTHING -->
+   {% else %}
+   <div class="body-inner">
+      <div class="site-top">
+         <div class="topbar-transparent" id="top-bar">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-9 col-md-9 col-sm-12">
+                     <ul class="top-info">
+                        <li><span class="info-icon"><i class="icon icon-phone3"></i></span>
+                           <div class="info-wrapper">
+                              <a href="#">
+                                 <p class="info-title">Contact Our Agents</p>
+                              </a>
+                           </div>
+                        </li>
+                        <li><span class="info-icon"><i class="icon icon-envelope"></i></span>
+                           <div class="info-wrapper">
+                              <p class="info-title">support@stormwealthinvestment.com</p>
+                           </div>
+                        </li>
+                     </ul>
+                     <!-- Ul end-->
+                  </div>
+               </div>
+               <!--Content row end-->
+            </div>
+            <!--Container end-->
+         </div>
+         <!--Top bar end-->
+         {% endif %}
+
+         <header class="header-trans-leftbox" id="header">
+            <div class="container">
+               <div class="header-wrapper clearfix">
+                  <div class="site-nav-inner">
+                     <nav class="navbar navbar-expand-lg">
+
+                        {% if request.path == "/account/user/dashboard/" or request.path == "/account/user/account-details/" %}
+                        <!-- DO NOTHING -->
+                        {% else %}
+                        <div class="navbar-brand navbar-header">
+                           <div class="logo">
+                              <a href="{% url 'apexapp:home' %}">
+                                 <img src="{% static 'images/StormWealth.png' %}" width="200px" height="40px"
+                                    alt="Logo">
+                              </a>
+                           </div>
+                           <!-- logo end-->
+                        </div>
+                        <!-- Navbar brand end-->
+                        {% endif %}
+
+                        {% if request.path in target %}
+
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                           data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                           aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i
+                                 class="icon icon-menu"></i></span></button>
+                        <!-- End of Navbar toggler-->
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                           <ul class="navbar-nav">
+                              <li class="nav-item active">
+                                 <a class="nav-link" href="{% url 'apexapp:home' %}">Home</a>
+                              </li>
+                              <li class="nav-item ">
+                                 <a class="nav-link" href="{% url 'apexapp:services' %}">Services</a>
+                              </li>
+                              <li class="nav-item ">
+                                 <a class="nav-link" href="{% url 'apexapp:about_us' %}">About</a>
+                              </li>
+                              <li class="nav-item ">
+                                 <a class="nav-link" href="{% url 'apexapp:contact_us' %}">Contact Us</a>
+                              </li>
+                           </ul>
+                           <!--Nav ul end-->
+                        </div>
+                        <ul class="navbar-nav">
+                           <li class="nav-item">
+                              <a class="nav-link" href="{% url 'userdashboard:register' %}">Create Account</a>
+                           </li>
+                           <li class="nav-item">
+                              <a class="nav-link" href="{% url 'userdashboard:login' %}">Login</a>
+                           </li>
+                        </ul>
+
+                        {% else %}
+
+                        <!-- DO NOTHING -->
+
+                        {% endif %}
+                     </nav>
+                     <!--Collapse end-->
+                  </div>
+                  <!--Site nav inner end-->
+               </div>
+               <!-- Header wrapper end-->
+            </div>
+            <!--Container end-->
+         </header>
+         <!--Header end-->
+
+      </div>
+      
+      {% if request.path == "/account/user/dashboard/" %}
+         <!-- DO NOT SHOW THE LANGUAGE SELECTOR -->
+      
+         {% else %}
+         <div class="position-fixed overflow-hidden w-100" style="z-index: 2000; bottom: 20px">
+            <!-- google translator -->
+            <div id="google_translate_element"></div>
+      </div>
+      {% endif %}
+         
+      {% block content %}
+      <div class="carousel slide" id="main-slide" data-ride="carousel">
+         <!-- Indicators-->
+         <ol class="carousel-indicators visible-lg visible-md">
+            <li class="active" data-target="#main-slide" data-slide-to="0"></li>
+            <li data-target="#main-slide" data-slide-to="1"></li>
+            <li data-target="#main-slide" data-slide-to="2"></li>
+         </ol>
+         <!-- Indicators end-->
+         <!-- Carousel inner-->
+         <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image:url(../static/static/images/slider/bg2.jpg);">
+               <div class="container">
+                  <div class="slider-content text-center">
+                     <div class="col-md-12">
+                        <h3 class="slide-sub-title">We create solution to<br>grow your investment</h3>
+                        <p>
+                           <a class="slider btn btn-primary" href="{% url 'apexapp:services' %}">Our Services</a>
+                           <a class="slider btn btn-border" href="{% url 'apexapp:contact_us' %}">Contact Us</a>
+                        </p>
+                     </div>
+                     <!-- Col end-->
+                  </div>
+                  <!-- Slider content end-->
+               </div>
+               <!-- Container end-->
+            </div>
+            <!-- Carousel item 1 end-->
+            <div class="carousel-item" style="background-image:url(../static/static/images/slider/bg3.jpg);">
+               <div class="container">
+                  <div class="slider-content text-right">
+                     <div class="col-md-12">
+                        <h2 class="slide-title title-light">Your future of investment starts with us</h2>
+                        <h3 class="slide-sub-title">We care about your investment and earnings</h3>
+                        <p class="slider-description lead">Nobody’s more committed to connecting you with the
+                           exceptional <br> top talents with the right fit
+                           for your investments than us.</p>
+                        <p>
+                           <a class="slider btn btn-primary" href="{% url 'apexapp:services' %}">Our Services</a>
+                           <a class="slider btn btn-border" href="{% url 'apexapp:contact_us' %}">Contact Us</a>
+                        </p>
+                     </div>
+                     <!-- Col end-->
+                  </div>
+                  <!-- Slider content end-->
+               </div>
+               <!-- Container end-->
+            </div>
+            <!-- Carousel item 1 end-->
+         </div>
+         <!-- Carousel inner end-->
+         <!-- Controllers-->
+         <a class="left carousel-control carousel-control-prev" href="#main-slide" data-slide="prev"><span><i
+                  class="fa fa-angle-left"></i></span></a>
+         <a class="right carousel-control carousel-control-next" href="#main-slide" data-slide="next"><span><i
+                  class="fa fa-angle-right"></i></span></a>
+      </div>
+      <!-- Carousel end-->
+
+      <section class="ts-features no-padding">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-4 feature-box1"
+                  style="background-image: url(../static/static/images/features/feature1.jpg);">
+                  <div class="ts-feature text-center">
+                     <div class="ts-feature-info"><i class="icon icon-consut2"></i>
+                        <h3 class="ts-feature-title">Manage Your Account</h3>
+                        <p class="text-white">Your investment are highly secured on our platform. Make it your priority
+                           investing on our platform as we make it our priority giving you the best. Get the best
+                           security you have dreamed by investing with us now.</p>
+                     </div>
+                  </div>
+                  <!-- feature 1 end-->
+               </div>
+               <!-- Col end-->
+               <div class="col-lg-4 feature-box2"
+                  style="background-image: url(../static/static/images/features/feature2.jpg);">
+                  <div class="ts-feature text-center">
+                     <div class="ts-feature-info"><i class="icon icon-chart2"></i>
+                        <h3 class="ts-feature-title">Instant Trading</h3>
+                        <p class="text-white">We provide instant investments/payments. Immediately after a withdrawal
+                           request, funds are automatically sent to your e-currency account. Making it simple and easy
+                           for you. We keep to our promises by providing You the fastest trading you may wish.
+                        </p>
+                     </div>
+                  </div>
+                  <!-- feature 2 end-->
+               </div>
+               <!-- Col end-->
+               <div class="col-lg-4 feature-box3"
+                  style="background-image: url(../static/static/images/features/feature3.jpg);">
+                  <div class="ts-feature text-center">
+                     <div class="ts-feature-info"><i class="icon icon-clock3"></i>
+                        <h3 class="ts-feature-title">Scalability</h3>
+                        <p class="text-white">Our Customers are so much happy. We guarantee high stable profits. Our
+                           Platform offers our clients proven and reliable investment plans with rates of return up to
+                           4% Daily. Earn as you go!!. Investment has been better with our Platform!!</p>
+                     </div>
+                  </div>
+                  <!-- feature 3 end-->
+               </div>
+               <!-- Col end-->
+            </div>
+            <!-- Row end-->
+         </div>
+         <!-- Container end-->
+      </section>
+
+      <section class="ts-services bg-pattern-2" id="ts-services">
+         <div class="container">
+            <div class="row text-center">
+               <div class="col-md-12">
+                  <h2 class="section-title"><span>Our Services</span>What We Do</h2>
+               </div>
+            </div>
+            <!-- Title row end-->
+            <div class="row">
+               <div class="col-lg-4 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <img class="img-fluid" src="{% static 'static/images/services/service1.jpg' %}" alt="">
+                     </div>
+                     <div class="ts-service-content">
+                        <h3 class="service-title">Investment Management</h3>
+                        <p>Your investment are highly managed and secured on our platform. Make it your priority
+                           investing on our platform as we make it our priority giving you the best. It's simple with
+                           stormwealthinvestment</p>
+                        <p><a class="link-more" href="{% url 'apexapp:about_us' %}">Read More <i
+                                 class="icon icon-right-arrow2"></i></a></p>
+                     </div>
+                  </div>
+                  <!-- Service1 end-->
+               </div>
+               <!-- Col 1 end-->
+               <div class="col-lg-4 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <img class="img-fluid" src="{% static 'images/recycle.jpg' %}" alt="">
+                     </div>
+                     <div class="ts-service-content">
+                        <h3 class="service-title">Shipping, Recycling and RE</h3>
+                        <p>We engage in Real Estate, Shipping of Goods and Services, Gold Minning, CFDS on stocks, ETFs,
+                           Purchasing of top Government bonds , recycling of waste materials and Bitcoin Minning; these
+                           and other several resources are the ways we raise money to pay you.</p>
+                        <p><a class="link-more" href="{% url 'apexapp:about_us' %}">Read More <i
+                                 class="icon icon-right-arrow2"></i></a></p>
+                     </div>
+                  </div>
+                  <!-- Service2 end-->
+               </div>
+               <!-- Col 2 end-->
+               <div class="col-lg-4 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <img class="img-fluid" src="{% static 'static/images/services/service3.jpg' %}" alt="">
+                     </div>
+                     <div class="ts-service-content">
+                        <h3 class="service-title">Support</h3>
+                        <p>We are available to help you with any of your investments needs and we make every effort to
+                           ensure contacting us is as easy as possible.</p>
+                        <p><a class="link-more" href="{% url 'apexapp:about_us' %}">Read More <i
+                                 class="icon icon-right-arrow2"></i></a></p>
+                     </div>
+                  </div>
+                  <!-- Service3 end-->
+               </div>
+               <!-- Col 3 end-->
+            </div>
+
+         </div>
+         <!-- Container end-->
+      </section>
+
+
+      <section class="ts-facts-area solid-bg no-padding" id="ts-facts-area">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-6 col-md-12">
+                  <div class="intro-video">
+                     <img class="img-fluid" src="{% static 'images/ceo.jpeg' %}" alt="">
+                     </a>
+                  </div>
+                  <!-- Intro video end-->
+               </div>
+               <!-- Col end-->
+               <div class="col-lg-6 col-md-12 ts-padding text-lg-left text-center">
+                  <h2 class="column-title">About Us</h2>
+                  <p class="intro-desc"></p>
+                  <div class="gap-20"></div>
+                  <div class="row facts-wrapper text-center">
+                     <div class="col-md-12">
+                        <div class="ts-facts">
+                           <div class="ts-facts-content">
+                              <p class="facts-desc">
+                                 Stormwealth Investment is an investment firm located at Copenhagen, Denmark with company number: #2420127; providing a stable inflow of profits, as we are always researching for new, more guaranteed and profitable operational methods. “We believe in the future of cryptocurrency, because it entered the exchange markets on a strong note. Success in this sphere is assured to everyone, who gets the hang of managing risks in this sphere. ” The activity of the real Company is the sustainable Management of participations in any Real Estate, shipping, Financial, Commercial and also deal with trading and mining on top Government bonds and recycling of waste products and oil ribs to pay their Investors.
+                                 Stormwealth Investment has been in existence since 25th of July, 2019 and we are here to stay...
+                              </p>
+                              <p><a class="link-more" href="{% url 'apexapp:about_us' %}">Read More <i
+                                 class="icon icon-right-arrow2"></i></a></p>
+                           </div>
+                        </div>
+                        <!-- Facts end-->
+                     </div>
+                  </div>
+                  <!-- Content Row 2 end-->
+               </div>
+               <!-- Col end-->
+            </div>
+            <!-- Container end-->
+      </section>
+      <!-- Fun fact end-->
+<br><br>
+      <section class="ts-facts-area solid-bg no-padding" id="ts-facts-area">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-6 col-md-12">
+                  <div class="intro-video" style="max-with:100%;">
+                     <img class="img-fluid" src="{% static 'static/images/intro-video.jpg' %}" alt="">
+                     <!--<a class="popup" href="{% static 'static/video/apexgrant.mp4' %}">-->
+                        <!--<div class="video-icon"><i class="icon icon-play"></i></div>-->
+                     </a>
+                  </div>
+                  <!-- Intro video end-->
+               </div>
+               <!-- Col end-->
+               <div class="col-lg-6 col-md-12 ts-padding text-lg-left text-center">
+                  <h2 class="column-title">stormwealthinvestment Statistics</h2>
+                  <p class="intro-desc"></p>
+                  <div class="gap-20"></div>
+                  <div class="row facts-wrapper text-center">
+                     <div class="col-md-6">
+                        <div class="ts-facts"><span class="facts-icon"><i class="icon icon-chart2"></i></span>
+                           <div class="ts-facts-content">
+                              <h4 class="ts-facts-num"><span class="counterUp">18645725</span>+</h4>
+                              <p class="facts-desc">Investment Growth</p>
+                           </div>
+                        </div>
+                        <!-- Facts end-->
+                     </div>
+                     <!-- Col 1 end-->
+                     <div class="col-md-6">
+                        <div class="ts-facts"><span class="facts-icon"><i class="icon icon-invest"></i></span>
+                           <div class="ts-facts-content">
+                              <h4 class="ts-facts-num"><span class="counterUp">1034567</span>+</h4>
+                              <p class="facts-desc">Successful Deposit</p>
+                           </div>
+                        </div>
+                        <!-- Facts end-->
+                     </div>
+                     <!-- Col 1 end-->
+                  </div>
+                  <!--Row End -->
+                  <div class="gap-30"></div>
+                  <div class="row facts-wrapper text-center">
+                     <!-- Col 1 end-->
+                     <div class="col-md-6">
+                        <div class="ts-facts"><span class="facts-icon"><i class="icon icon-invest"></i></span>
+                           <div class="ts-facts-content">
+                              <h4 class="ts-facts-num"><span class="counterUp">834567</span>+</h4>
+                              <p class="facts-desc">Successful Withdrawal</p>
+                           </div>
+                        </div>
+                        <!-- Facts end-->
+                     </div>
+                     <!-- Col 1 end-->
+                     <!-- Col 1 end-->
+                     <div class="col-md-6">
+                        <div class="ts-facts"><span class="facts-icon"><i class="icon icon-deal"></i></span>
+                           <div class="ts-facts-content">
+                              <h4 class="ts-facts-num"><span class="counterUp">139</span></h4>
+                              <p class="facts-desc">Running Projects</p>
+                           </div>
+                        </div>
+                        <!-- Facts end-->
+                     </div>
+                     <!-- Col 1 end-->
+                  </div>
+                  <!-- Row End -->
+               </div>
+               <!-- Content Row 2 end-->
+            </div>
+            <!-- Col end-->
+         </div>
+         <!-- Container end-->
+      </section>
+      <!-- Fun fact end-->
+
+      <section class="ts-featured-cases">
+         <div class="container">
+            <div class="section-title-vertical">
+               <h2 class="section-title"></h2>
+            </div>
+            <!-- Title row end-->
+            <div class="row">
+               <div class="owl-carousel owl-theme featured-cases-slide" id="featured-cases-slide">
+                  <div class="item">
+                     <div class="featured-projects-content">
+                        <div class="featured-projects-text float-left">
+                           <h2 class="column-title">More About Us</h2>
+                           <p class="intro-desc">Stormwealth Investment is an established platform of highly skilled Personnels, who have acquired extensive practice experiences and credibility in Investment and Bitcoin trading. Stormwealth Investment has established a strong investment track record with expertise in conventional fund management. All subsidiaries of the Stormwealth Investment are wholly owned entities which are regulated...
+                           <hr>In addition, we tag the best way of rewarding our clients. You will become a regional representative of your country and be earning minimum of $2k USD once you have up to $20k USD of investment. The more you invest, the more you earn. The best of it all as a regional representative is that all Investors from your region will be registering under you therefore increasing your pay through the network.
+                           </p>
+                           <p><a class="btn btn-primary" href="{% url 'apexapp:about_us' %}"> Read More</a></p>
+                        </div>
+                        <div class="features-slider-img float-right">
+                           <img class="img-fluid" src="{% static 'static/images/slider-small/featured-slider1.jpg' %}"
+                              alt="">
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Item 1 end-->
+               </div>
+               <!-- Featured Projects slider end-->
+            </div>
+            <!-- Content row end-->
+         </div>
+         <!-- Container end-->
+      </section>
+      <!-- Featured projects end-->
+
+
+      
+      <section class="ts-services bg-pattern-2" id="ts-services">
+         <div class="container">
+            <div class="row text-center">
+               <div class="col-md-12">
+                  <h2 class="section-title"><span>Our Professional Teams</span>Expert Personnels</h2>
+               </div>
+            </div>
+            <!-- Title row end-->
+            <div class="row">
+               <div class="col-lg-4 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <img class="img-fluid" src="{% static 'images/ceo.jpeg' %}" alt="">
+                     </div>
+                     <div class="ts-service-content">
+                        <h6 class="section-title"><span>Paris Robert</span>Company CEO</h6>
+                     </div>
+                  </div>
+                  <!-- Service1 end-->
+               </div>
+               <!-- Col 1 end-->
+               <div class="col-lg-4 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <img class="img-fluid" src="{% static 'images/marketer.jpeg' %}" alt="">
+                     </div>
+                     <div class="ts-service-content">
+                        <h6 class="section-title"><span>Karen Victoria</span>Company Marketer</h6>
+                     </div>
+                  </div>
+                  <!-- Service2 end-->
+               </div>
+               <!-- Col 2 end-->
+               <div class="col-lg-4 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <img class="img-fluid" src="{% static 'images/director.jpeg' %}" alt="">
+                     </div>
+                     <div class="ts-service-content">
+                        <h6 class="section-title"><span>Jonathan Tobias</span>Company Director</h6>
+                     </div>
+                  </div>
+                  <!-- Service3 end-->
+               </div>
+               <!-- Col 3 end-->
+            </div>
+
+         </div>
+         <!-- Container end-->
+      </section>
+
+
+      <section class="ts-services bg-pattern-2" id="ts-services">
+         <div class="container">
+            <div class="row text-center">
+               <div class="col-md-12">
+                  <h2 class="section-title"><span>Trade With a Certified Company</span>We are Certified to Trade</h2>
+               </div>
+            </div>
+            <!-- Title row end
+            <div class="row">
+               <div class="col-lg-4 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <a href="{% static 'images/apex-cert.jpeg' %}" target="_blank"><img class="img-fluid" src="{% static 'images/apex-cert.jpeg' %}" alt=""></a>
+                     </div>
+                     <div class="ts-service-content">
+                        <h6 class="section-title"><span>stormwealthinvestment Certificate </span></h6>
+                     </div>
+                  </div>
+               -->
+                  <!-- Service1 end-->
+               <!-- </div> -->
+               <!-- Col 1 end-->
+               <!-- <div class="col-lg-4 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <a href="{% static 'images/apex-insur.jpg' %}"  target="_blank"><img class="img-fluid" src="{% static 'images/apex-insur.jpg' %}" alt=""></a>
+                     </div>
+                     <div class="ts-service-content">
+                        <h6 class="section-title"><span>stormwealthinvestment license</span></h6>
+                     </div>
+                  </div> -->
+                  <!-- Service2 end-->
+               <!-- </div> -->
+               <!-- Col 2 end-->
+               <div class="col-lg-4 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                       <a href="{% static 'images/stormwealthinvestment-en-pdf.pdf' %}"  target="_blank"> <img class="img-fluid" src="{% static 'images/pdf.jpg' %}" alt=""></a>
+                     </div>
+                     <div class="ts-service-content">
+                        <h6 class="section-title"><span>stormwealthinvestment PDF</span></h6>
+                     </div>
+                  </div>
+                  <!-- Service3 end-->
+               </div>
+               <!-- Col 3 end-->
+            </div> -->
+
+         </div>
+         <!-- Container end-->
+      </section>
+
+      <section class="ts-services bg-pattern-2" id="ts-services">
+         <div class="container">
+            <div class="row text-center">
+               <div class="col-md-12">
+                  <h2 class="section-title"><span>Profitable Plans</span>Investment Plans</h2>
+               </div>
+            </div>
+            <!-- Title row end-->
+            <div class="row">
+               <div class="col-lg-3 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                     </div>
+                     <div class="ts-service-content">
+                        <span class="ts-service-icon">
+                           <i class="icon icon-pie-chart2"></i>
+                        </span>
+                        <h3 class="service-title">GENERAL PLAN</h3>
+                        <div class="pricing-price">
+                           <p><span class="currency">1.9%</span><span class="time"> Daily</span></p>
+                        </div>
+                        <div class="pricing-list">
+                           <p>Plan description.</p>
+                           <hr>
+                           <p>Instant Deposit</p>
+                           <hr>
+                           <p>minimum: $100</p>
+                           <hr>
+                           <p>max: $999</p>
+                           <hr>
+                           <p>percentage: 1.9%</p>
+                           <hr>
+                           <p>duration: 7 Days</p>
+                           <hr>
+                           <p>Ref bonus: 15%</p>
+                           <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                              <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                           </a>
+
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Service1 end-->
+               </div>
+               <!-- Col 1 end-->
+               <div class="col-lg-3 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                     </div>
+                     <div class="ts-service-content">
+                        <span class="ts-service-icon">
+                           <i class="icon icon-pie-chart2"></i>
+                        </span>
+                        <h3 class="service-title">TRILLER PLAN</h3>
+                        <div class="pricing-price">
+                           <p><span class="currency">2.8%</span><span class="time"> Daily</span></p>
+                        </div>
+                        <div class="pricing-list">
+                           <p>Plan description.</p>
+                           <hr>
+                           <p>Instant Deposit</p>
+                           <hr>
+                           <p>minimum: $1,000</p>
+                           <hr>
+                           <p>max: $4,999</p>
+                           <hr>
+                           <p>percentage: 2.8%</p>
+                           <hr>
+                           <p>duration: 7 Days</p>
+                           <hr>
+                           <p>Ref bonus: 15%</p>
+                           <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                              <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                           </a>
+
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Service2 end-->
+               </div>
+               <!-- Col 2 end-->
+               <div class="col-lg-3 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                     </div>
+                     <div class="ts-service-content">
+                        <span class="ts-service-icon">
+                           <i class="icon icon-pie-chart2"></i>
+                        </span>
+                        <h3 class="service-title">PRO PLAN</h3>
+                        <div class="pricing-price">
+                           <p><span class="currency">3.9%</span><span class="time"> Daily</span></p>
+                        </div>
+                        <div class="pricing-list">
+                           <p>Plan description.</p>
+                           <hr>
+                           <p>Instant Deposit</p>
+                           <hr>
+                           <p>minimum: $5,000</p>
+                           <hr>
+                           <p>max: $9,999</p>
+                           <hr>
+                           <p>percentage: 3.9%</p>
+                           <hr>
+                           <p>duration: 7 Days</p>
+                           <hr>
+                           <p>Ref bonus: 15%</p>
+                           <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                              <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                           </a>
+
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Service3 end-->
+               </div>
+               <!-- Col 3 end-->
+
+               <div class="col-lg-3 col-md-12">
+                  <div class="ts-service-box">
+                     <div class="ts-service-image-wrapper">
+                        <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                     </div>
+                     <div class="ts-service-content">
+                        <span class="ts-service-icon">
+                           <i class="icon icon-pie-chart2"></i>
+                        </span>
+                        <h3 class="service-title">GENERAL PLAN</h3>
+                        <div class="pricing-price">
+                           <p><span class="currency">5.5%</span><span class="time"> Daily</span></p>
+                        </div>
+                        <div class="pricing-list">
+                           <p>Plan description.</p>
+                           <hr>
+                           <p>Instant Deposit</p>
+                           <hr>
+                           <p>minimum: $10,000</p>
+                           <hr>
+                           <p>max: Unlimited</p>
+                           <hr>
+                           <p>percentage: 5.5%</p>
+                           <hr>
+                           <p>duration: 7 Days</p>
+                           <hr>
+                           <p>Ref bonus: 15%</p>
+                           <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                              <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                           </a>
+
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Service4 end-->
+               </div>
+               <!-- Col 4 end-->
+            </div>
+
+         </div>
+         <!-- Container end-->
+      </section>
+
+      <div class="banner-area" id="banner-area"
+         style="background-image:url(../static/static/images/banner/banner5.jpg);">
+         <div class="container">
+            <div class="row justify-content-center">
+               <div class="col">
+                  <div class="banner-heading">
+                     <h1 class="banner-title">Contact Us</h1>
+                     <ol class="breadcrumb">
+                        <li><a href="{% url 'apexapp:home' %}">Home</a></li>
+                        <li>Contact Us</li>
+                     </ol>
+                  </div>
+               </div>
+               <!-- Col end-->
+            </div>
+            <!-- Row end-->
+         </div>
+         <!-- Container end-->
+      </div>
+
+      <section class="main-container" id="main-container">
+         <div class="container">
+            <div class="row text-center">
+               <div class="col-md-12">
+                  <h2 class="section-title"><span>Send Us Message</span>Contact Us</h2>
+               </div>
+            </div>
+            <!-- Title row end-->
+            <div class="row">
+               <div class="col-lg-6">
+                  <div class="ts-col-inner">
+                     <div class="ts-contact-info box-border"><span class="ts-contact-icon float-left"><i
+                              class="icon icon-phone3"></i></span>
+                        <div class="ts-contact-content">
+                           <h3 class="ts-contact-title">Call Us</h3>
+                           <p>Request to speak with an Agent</p>
+                        </div>
+                        <!-- Contact content end-->
+                     </div>
+                     <!-- End Contact info 1-->
+                  </div>
+               </div>
+               <div class="col-lg-6">
+                  <div class="ts-col-inner">
+                     <div class="ts-contact-info box-border"><span class="ts-contact-icon float-left"><i
+                              class="icon icon-envelope"></i></span>
+                        <div class="ts-contact-content">
+                           <h3 class="ts-contact-title">Mail Us</h3>
+                           <br>
+                        </div>
+                        <p>support@stormwealthinvestment.com</p>
+
+                        <!-- Contact content end-->
+                     </div>
+                     <!-- End Contact info 1-->
+                  </div>
+               </div>
+            </div>
+            <!-- Row End-->
+         </div>
+         <!-- container end-->
+         <div class="gap-60"></div>
+      </section>
+
+
+      {% endblock content %}
+      <section class="clients-area" id="clients-area">
+         <div class="container">
+            <div class="row">
+               <div class="col-sm-12 owl-carousel owl-theme text-center partners" id="partners-carousel">
+                  <figure class="item partner-logo">
+                     <a href="#">
+                        <img class="img-fluid" src="{% static 'static/images/clients/client1.png' %}" alt="">
+                     </a>
+                  </figure>
+                  <figure class="item partner-logo">
+                     <a href="#">
+                        <img class="img-fluid" src="{% static 'static/images/clients/client2.png' %}" alt="">
+                     </a>
+                  </figure>
+                  <figure class="item partner-logo">
+                     <a href="#">
+                        <img class="img-fluid" src="{% static 'static/images/clients/client3.png' %}" alt="">
+                     </a>
+                  </figure>
+                  <figure class="item partner-logo">
+                     <a href="#">
+                        <img class="img-fluid" src="{% static 'static/images/clients/client4.png' %}" alt="">
+                     </a>
+                  </figure>
+                  <figure class="item partner-logo">
+                     <a href="#">
+                        <img class="img-fluid" src="{% static 'static/images/clients/client5.png' %}" alt="">
+                     </a>
+                  </figure>
+                  <figure class="item partner-logo last">
+                     <a href="#">
+                        <img class="img-fluid" src="{% static 'static/images/clients/client6.png' %}" alt="">
+                     </a>
+                  </figure>
+                  <figure class="item partner-logo last">
+                     <a href="#">
+                        <img class="img-fluid" src="{% static 'static/images/clients/client7.png' %}" alt="">
+                     </a>
+                  </figure>
+               </div>
+               <!-- Owl carousel end-->
+            </div>
+            <!-- Content row end-->
+         </div>
+         <!-- Container end-->
+      </section>
+      <!-- Partners end-->
+
+      <!-- Footer start-->
+      <footer class="footer" id="footer">
+         <!-- Footer Main-->
+         <div class="copyright">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                     <div class="copyright-info"><span>Copyright &copy; 2019 stormwealthinvestment. All Rights Reserved.</span>
+                     </div>
+                  </div>
+               </div>
+               <!-- Row end-->
+            </div>
+            <!-- Container end-->
+         </div>
+         <!-- Copyright end-->
+      </footer>
+      <!-- Footer end-->
+
+      <!--<div class="back-to-top affix" id="back-to-top" data-spy="affix" data-offset-top="10">-->
+      <!--   <button class="btn btn-primary" title="Back to Top">-->
+      <!--      <i class="fa fa-angle-double-up"></i>-->
+            <!-- icon end-->
+      <!--   </button>-->
+         <!-- button end-->
+      <!--</div>-->
+      <!-- End Back to Top-->
+
+      <!--
+    Javascript Files
+    ==================================================
+    -->
+      <!-- initialize jQuery Library-->
+      <script type="text/javascript" src="{% static 'static/js/jquery.js' %}"></script>
+      <!-- Popper-->
+      <script type="text/javascript" src="{% static 'static/js/popper.min.js' %}"></script>
+      <!-- Bootstrap jQuery-->
+      <script type="text/javascript" src="{% static 'static/js/bootstrap.min.js' %}"></script>
+      <!-- Owl Carousel-->
+      <script type="text/javascript" src="{% static 'static/js/owl.carousel.min.js' %}"></script>
+      <!-- Counter-->
+      <script type="text/javascript" src="{% static 'static/js/jquery.counterup.min.js' %}"></script>
+      <!-- Waypoints-->
+      <script type="text/javascript" src="{% static 'static/js/waypoints.min.js' %}"></script>
+      <!-- Color box-->
+      <script type="text/javascript" src="{% static 'static/js/jquery.colorbox.js' %}"></script>
+      <!-- Smoothscroll-->
+      <script type="text/javascript" src="{% static 'static/js/smoothscroll.js' %}"></script>
+      <!-- Google Map API Key-->
+      <script type="text/javascript"
+         src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsa2Mi2HqyEcEnM1urFSIGEpvualYjwwM"></script>
+      <!-- Google Map Plugin-->
+      <script type="text/javascript" src="{% static 'static/js/gmap3.js' %}"></script>
+      <!-- For Chart-->
+      <script type="text/javascript" src="{% static 'static/js/morris.js' %}"></script>
+      <!-- Template custom-->
+      <script type="text/javascript" src="{% static 'static/js/custom.js' %}"></script>
+
+
+      <script src="{% static 'assets/js/jquery-3.5.1.min.js' %}"></script>
+      <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/app.js' %}"></script>
+      <script src="{% static 'assets/js/jquery-3.5.1.min.js' %}"></script>
+      <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/intlTelInput.min.js' %}"></script>
+      <script src="{% static 'js/app.js' %}"></script>
+
+
+      <script type="text/javascript"> 
+         function googleTranslateElementInit() { 
+             new google.translate.TranslateElement(
+                 {pageLanguage: 'en'}, 
+                 'google_translate_element'
+             ); 
+         } 
+     </script>
+      <!-- Google tranlator -->
+      <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+   
+
+      <!-- SCRIPT TO COPY THE REFERRAL LINK -->
+      <!-- Script for copying text on wallet address field -->
+      <script>
+         function copyLink() {
+            /* Get the text field */
+            var copyText = document.getElementById("id_ref_link");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            navigator.clipboard.writeText(copyText.value);
+         }
+      </script>
+
+      <script>
+         function copyWalletAddr() {
+            /* Get the text field */
+            var copyText = document.getElementById("id_wallet_address");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            navigator.clipboard.writeText(copyText.value);
+
+            /* Displaying success on text copied */
+            success_text = document.getElementById("copy-success")
+            success_text.style.display = "block";
+            document.getElementById("btn-copy").style.display = "none";
+            return
+         }
+      </script>
+
+   {% if request.path == "/account/user/dashboard/" %}
+   <!-- DO NOT SHOW THE SMARTSUPP -->
+
+   {% else %}
+<!-- Smartsupp Live Chat script -->
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+   (function(){
+   var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+   s1.async=true;
+   s1.src='https://embed.tawk.to/624b5c742abe5b455fc49b52/1fvr62ana';
+   s1.charset='UTF-8';
+   s1.setAttribute('crossorigin','*');
+   s0.parentNode.insertBefore(s1,s0);
+   })();
+   </script>
+   <!--End of Tawk.to Script-->
+{% endif %}
+   </div>
+   <!--Body Inner end-->
+</body>
+
+
+<!-- Mirrored from thestandardfinance.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 22 Mar 2022 00:51:54 GMT -->
+
+</html>

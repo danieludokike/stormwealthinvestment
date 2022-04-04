@@ -1,0 +1,275 @@
+{% extends '../infinityapp/index.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block title %} User Login {% endblock title %}
+
+
+{% block content %}
+
+<div class="header-bg header-bg-1"></div>
+<div class="position-fixed overflow-hidden" style="z-index: 2000;top: 0; right: 0">
+  <div id="google-translate-element"></div>
+</div>
+
+
+<div class="fixed-top">
+  <div class="appbar-area sticky-black">
+    <div class="container">
+      <div class="appbar-container">
+        <div class="appbar-item appbar-actions">
+          <div class="appbar-action-item">
+            <a href="#" class="appbar-action-bar" data-bs-toggle="modal" data-bs-target="#sidebarDrawer"><i
+                class="flaticon-menu"></i></a>
+          </div>
+        </div>
+        <div class="appbar-item appbar-brand me-auto">
+          <a href="/">
+            <img src="{% static 'images/StormWealth.png' %}" width="200px" height="20px" alt="logo" class="main-logo">
+          </a>
+        </div>
+        <div class="appbar-item appbar-options">
+          <div class="appbar-option-item appbar-option-notification">
+
+
+          </div>
+          <div class="appbar-option-item appbar-option-profile">
+            <a href="{% url 'userdashboard:user_profile' %}"><img src="{% static 'images/user.jpg' %}"
+                alt="profile"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="body-content body-content-lg">
+  <div class="container">
+    <div class="container">
+      <div class="mb-3" style="max-height: 300px">
+        <div class="glide">
+          <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides">
+              <li class="glide__slide">
+                <div class="account-card" style="height:100%">
+                  <div class="card-header">
+                    <div class="header-item">
+                      <h2>Welcome, {{request.user}}</h2>
+                    </div>
+                    <div class="header-item">
+                      <span class="badge bg-danger">ACTIVE</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="glide__bullets" data-glide-el="controls[nav]">
+            <button class="glide__bullet" data-glide-dir="=0"></button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="option-section mb-15">
+        <div class="row gx-3">
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title">Transaction History</h5>
+          </div>
+          <hr>
+          <table class="table">
+            <thead>
+              <tr style="color: #000;">
+                <th scope="col">#</th>
+                <th scope="col">AMOUNT ($)</th>
+                <th scope="col">TYPE</th>
+                <th scope="col">TRANSACTION REF</th>
+                <th scope="col">DATE</th>
+                <th scope="col">STATUS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tran in transactions %}
+              <tr>
+
+                {% if tran.status == "PENDING" %}
+                <td class="text-danger" scope="row">{{forloop.counter}}</th>
+                <td class="text-danger ">{{ tran.amount|intcomma}}</td>
+                <td class="text-danger ">{{tran.transaction_type}}</td>
+                <td class="text-danger ">{{tran.transaction_referrence}}</td>
+                <td class="text-danger ">{{tran.date}}</td>
+                <td class="text-danger ">{{tran.status}} <i class="fa fa-times"></i></td>
+
+                {% else %}
+                <td class="text-success" scope="row">{{forloop.counter}}</th>
+                <td class="text-success">{{ tran.amount|intcomma}}</td>
+                <td class="text-success">{{tran.transaction_type}}</td>
+                <td class="text-success">{{tran.transaction_referrence}}</td>
+                <td class="text-success">{{tran.date}}</td>
+                <td class="text-success">{{tran.status}} <i class="fa fa-check"></i></td>
+                {% endif %}
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <small>Latest transactions</small>
+        </div>
+        <hr>
+        <br><br>
+        {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-success text-center" role="alert">
+          {{ msg }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <table class="table">
+          <thead>
+            <tr style="color: #000;">
+              <th scope="col">REFERREE</th>
+              <th scope="col">EARNED</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for value in each_user_bonus_for_referrer %}
+            <tr>
+              <td class="text-success">{{ value.user}}</td>
+              <td class="text-success">${{value.bonus_for_referrer}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="box-footer clearfix">
+          <a>
+            <button class="pull-right btn btn-success" id="sendEmail">Total bonus accumulated:
+              ${{referral_bonus.accumulated_bonus|intcomma}} <i class="fa fa-money"></i></button>
+          </a>
+        </div>
+        <br><br>
+
+        {% if referral_bonus.accumulated_bonus > 0 %}
+        <a href="{% url 'userdashboard:withdraw_bonus' %}">
+          <button class="pull-right btn btn-primary" id="sendEmail">Withdraw Bonus <i class="fa fa-money"></i></button>
+        </a>
+        {% else %}
+        <div class="box-footer clearfix">
+          <a href="{% url 'userdashboard:withdraw_bonus' %}">
+            <button disabled class="pull-right btn btn-success" id="sendEmail">Withdraw Bonus <i
+                class="fa fa-money"></i></button>
+          </a>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- quick email widget -->
+      <div class="box box-info">
+        <div class="box-header">
+          <h3 class="box-title">Earning History</h3>
+          <div id="google_translate_element"></div>
+          <!-- tools box -->
+        </div>
+        <div style="overflow-x:auto;" class="box-body">
+          <table class="table">
+            <thead>
+              <tr style="color: #000;">
+                <th scope="col">Earning</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            {% for e in earnings %}
+            <tbody>
+              <tr>
+                <td class="text-success">Earning from deposit ${{ e.amount }} - {{ e.percentage }}%</small></td>
+                <td class="text-success">${{ e.earning }}</td>
+                <td class="text-success">{{ e.date }}</td>
+              </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="app-navbar">
+  <div class="container">
+    <div class="navbar-content ">
+      <div class="navbar-content-item">
+        <a href="userdashboard:user_profile" class="active">
+          <i class="flaticon-house"></i>
+          Dashboard
+        </a>
+      </div>
+      <div class="navbar-content-item">
+        <a href="{% url 'userdashboard:account_details' %}">
+          <i class="flaticon-invoice"></i>
+          Transactions
+        </a>
+      </div>
+      <div class="navbar-content-item">
+        <a href="{% url 'userdashboard:make_deposit' %}">
+          <i class="flaticon-savings"></i>
+          Fund Account
+        </a>
+      </div>
+      <div class="navbar-content-item">
+        <a href="{% url 'userdashboard:update_wallet' id %}">
+          <i class="flaticon-settings"></i>
+          Update Wallet Address
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="sidebarDrawer" tabindex="-1" aria-labelledby="sidebarDrawer" aria-hidden="true">
+  <div class="modal-dialog side-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header sidebar-modal-header">
+        <div class="sidebar-profile-info">
+          <div class="sidebar-profile-thumb">
+            <img src="{% static 'images/user.jpg' %}" alt="profile">
+          </div>
+          <div class="sidebar-profile-text">
+            <h3>{{request.user}}</h3>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="sidebar-nav">
+          <div class="sidebar-nav-item">
+            <h3>Menu</h3>
+            <ul class="sidebar-nav-list">
+              <li><a href="{% url 'userdashboard:user_profile' %}" class="active"><i class="flaticon-house"></i>
+                  Dashboard</a></li>
+              <li><a href="{% url 'userdashboard:account_details' %}"><i class="flaticon-invoice"></i>
+                  Transactions</a></li>
+              <li><a href="{% url 'userdashboard:make_deposit' %}"><i class="flaticon-savings"></i> Add
+                  Funds</a></li>
+              <li><a href="{% url 'userdashboard:request_withdraw' %}"><i class="flaticon-invoice"></i> Withdraw
+                  Fund</a></li>
+              <li><a href="{% url 'userdashboard:update_wallet' id %}"><i class="flaticon-settings"></i>
+                  Update Wallet Addresses</a></li>
+              <li><a href="{% url 'password_change' %}"><i class="flaticon-settings"></i>
+                  Change Password</a></li>
+              <li><a href="{% url 'userdashboard:logout' %}"><i class="flaticon-logout"></i> Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

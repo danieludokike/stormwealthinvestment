@@ -1,0 +1,251 @@
+{% extends "../infinityapp/index.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} | Terms and Conditons {% endblock title %}
+
+{% block content %}
+      <!-- slider section -->
+      <section style="background-color: #2A3F65;" class="slider_section ">
+        <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="container ">
+                <div class="row">
+                  <div class="col-md-7 col-lg-6 ">
+                    <div class="detail-box">
+                      <h1>
+                        We Help Grow <br>
+                        Your Investment
+                      </h1>
+                      <p>
+                        By Investing in Our Platform, We can help you make more percentage gain and grow your business. Have it now by registring in 
+                        our platform and explore!!
+                      </p>
+                      <div class="btn-box">
+                        <a href="{% url 'userdashboard:register' %}" class="btn1">
+                          Signup Now
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-lg-6">
+                    <div class="img-box col-lg-10 mx-auto px-0">
+                      <img src="{% static 'userdashboard/bitapp/images/slider-img.png' %}" height="400" alt="Primecoinfx certificate" srcset="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item ">
+              <div class="container ">
+                <div class="row">
+                  <div class="col-md-7 col-lg-6 ">
+                    <div class="detail-box">
+                      <h1>
+                        Make the best <br>
+                        out of our platform
+                      </h1>
+                      <p>
+                        You are unique and deserve a good platform that can pay you more as you invest. It is simple, easy, fancy and accessible.
+                        You have all at your finger tips by registering an account and making a deposite
+                      </p>
+                      <div class="btn-box">
+                        <a href="{% url 'userdashboard:register' %}" class="btn1">
+                          Explore
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-lg-6">
+                    <div class="img-box col-lg-10 mx-auto px-0">
+                      <img src="{% static 'userdashboard/bitapp/images/slider-img.png' %}" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <ol class="carousel-indicators">
+              <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+              <li data-target="#customCarousel1" data-slide-to="1"></li>
+            </ol>
+          </div>
+        </div>
+  
+      </section>
+      <!-- end slider section -->
+
+   <!-- Investment plans -->
+   <section class="ts-services bg-pattern-2" id="ts-services">
+    <div class="container">
+       <div class="row text-center">
+          <div class="col-md-12">
+             <h2 class="section-title"><span>Profitable Plans</span>Investment Plans</h2>
+          </div>
+       </div>
+       <!-- Title row end-->
+       <div class="row">
+          <div class="col-lg-3 col-md-12">
+             <div class="ts-service-box">
+                <div class="ts-service-image-wrapper">
+                   <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                </div>
+                <div class="ts-service-content">
+                   <span class="ts-service-icon">
+                      <i class="icon icon-pie-chart2"></i>
+                   </span>
+                   <h3 class="service-title">GENERAL PLAN</h3>
+                   <div class="pricing-price">
+                      <p><span class="currency">1.9%</span><span class="time"> Daily</span></p>
+                   </div>
+                   <div class="pricing-list">
+                      <p>Plan description.</p>
+                      <hr>
+                      <p>Instant Deposit</p>
+                      <hr>
+                      <p>minimum: $100</p>
+                      <hr>
+                      <p>max: $999</p>
+                      <hr>
+                      <p>percentage: 1.9%</p>
+                      <hr>
+                      <p>duration: 7 Days</p>
+                      <hr>
+                      <p>Ref bonus: 15%</p>
+                      <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                         <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                      </a>
+
+                      </ul>
+                   </div>
+                </div>
+             </div>
+             <!-- Service1 end-->
+          </div>
+          <!-- Col 1 end-->
+          <div class="col-lg-3 col-md-12">
+             <div class="ts-service-box">
+                <div class="ts-service-image-wrapper">
+                   <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                </div>
+                <div class="ts-service-content">
+                   <span class="ts-service-icon">
+                      <i class="icon icon-pie-chart2"></i>
+                   </span>
+                   <h3 class="service-title">TRILLER PLAN</h3>
+                   <div class="pricing-price">
+                      <p><span class="currency">2.8%</span><span class="time"> Daily</span></p>
+                   </div>
+                   <div class="pricing-list">
+                      <p>Plan description.</p>
+                      <hr>
+                      <p>Instant Deposit</p>
+                      <hr>
+                      <p>minimum: $1,000</p>
+                      <hr>
+                      <p>max: $4,999</p>
+                      <hr>
+                      <p>percentage: 2.8%</p>
+                      <hr>
+                      <p>duration: 7 Days</p>
+                      <hr>
+                      <p>Ref bonus: 15%</p>
+                      <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                         <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                      </a>
+
+                      </ul>
+                   </div>
+                </div>
+             </div>
+             <!-- Service2 end-->
+          </div>
+          <!-- Col 2 end-->
+          <div class="col-lg-3 col-md-12">
+             <div class="ts-service-box">
+                <div class="ts-service-image-wrapper">
+                   <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                </div>
+                <div class="ts-service-content">
+                   <span class="ts-service-icon">
+                      <i class="icon icon-pie-chart2"></i>
+                   </span>
+                   <h3 class="service-title">PRO PLAN</h3>
+                   <div class="pricing-price">
+                      <p><span class="currency">3.9%</span><span class="time"> Daily</span></p>
+                   </div>
+                   <div class="pricing-list">
+                      <p>Plan description.</p>
+                      <hr>
+                      <p>Instant Deposit</p>
+                      <hr>
+                      <p>minimum: $5,000</p>
+                      <hr>
+                      <p>max: $9,999</p>
+                      <hr>
+                      <p>percentage: 3.9%</p>
+                      <hr>
+                      <p>duration: 7 Days</p>
+                      <hr>
+                      <p>Ref bonus: 15%</p>
+                      <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                         <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                      </a>
+
+                      </ul>
+                   </div>
+                </div>
+             </div>
+             <!-- Service3 end-->
+          </div>
+          <!-- Col 3 end-->
+
+          <div class="col-lg-3 col-md-12">
+             <div class="ts-service-box">
+                <div class="ts-service-image-wrapper">
+                   <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                </div>
+                <div class="ts-service-content">
+                   <span class="ts-service-icon">
+                      <i class="icon icon-pie-chart2"></i>
+                   </span>
+                   <h3 class="service-title">GENERAL PLAN</h3>
+                   <div class="pricing-price">
+                      <p><span class="currency">5.5%</span><span class="time"> Daily</span></p>
+                   </div>
+                   <div class="pricing-list">
+                      <p>Plan description.</p>
+                      <hr>
+                      <p>Instant Deposit</p>
+                      <hr>
+                      <p>minimum: $10,000</p>
+                      <hr>
+                      <p>max: Unlimited</p>
+                      <hr>
+                      <p>percentage: 5.5%</p>
+                      <hr>
+                      <p>duration: 7 Days</p>
+                      <hr>
+                      <p>Ref bonus: 15%</p>
+                      <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                         <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                      </a>
+
+                      </ul>
+                   </div>
+                </div>
+             </div>
+             <!-- Service4 end-->
+          </div>
+          <!-- Col 4 end-->
+       </div>
+
+    </div>
+    <!-- Container end-->
+ </section>
+  <!-- End investment plans -->
+  
+
+  {% endblock content %}

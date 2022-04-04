@@ -1,0 +1,95 @@
+{% extends '../infinityapp/index.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} WITHDRAW BONUS {% endblock title %}
+
+
+{% block content %}
+
+<div>
+  <div class="header-bg header-bg-1"></div>
+  <div class="position-fixed overflow-hidden" style="z-index: 2000;top: 0; right: 0">
+    <div id="google-translate-element"></div>
+  </div>
+  <div class="fixed-top">
+    <div class="appbar-area sticky-black">
+      <div class="container">
+        <div class="appbar-container">
+          <div class="appbar-item appbar-page-title mx-auto mt-5">
+            <h3>WITHDRAW FUND FROM ACCUMULATED BONUS </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="body-content body-content-lg">
+    <div class="container">
+      <div class="container">
+
+        <div class="page-header">
+          <div class="page-header-title page-header-item">
+            <h3>WITHDRAW FUND FROM ACCUMULATED BONUS </h3>
+          </div>
+        </div>
+
+        <br />
+        {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-danger text-center" role="alert">
+          {{ msg }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <br>
+
+
+        <div class="authentication-form pb-15">
+          <form action="{% url 'userdashboard:withdraw_bonus' %}" method="post" novalidate>
+            {% csrf_token %}
+            <div class="form-group pb-15">
+              <label>USERNAME</label>
+              <div class="input-group">
+                <input type="text" name="username" value="{{request.user}}" class="form-control" readonly>
+              </div>
+            </div>
+
+            <div class="form-group pb-15">
+              <label>EMAIL</label>
+              <div class="input-group">
+                <input type="email" name="email" value="{{request.user.email}}" class="form-control" readonly>
+              </div>
+            </div>
+
+            <div class="form-group pb-15">
+              <label>SELECT WALLET ADDRESS</label>
+              <div class="input-group">
+                {% render_field form.wallet_type class="form-control" %}
+              </div>
+            </div>
+
+            
+            <div class="form-group pb-15">
+              <label>ENTER AMOUNT TO WITHDRAW</label>
+              <div class="input-group">
+                <input type="number" name="amount"  class="form-control" placeholder="$0">
+              </div>
+            </div>
+
+            <button class="btn main-btn main-btn-lg full-width mb-10"> REQUEST BONUS WITHDRAWAL</button>
+                <a class="btn btn-block btn-danger" href="{% url 'userdashboard:user_profile' %}" >
+                  CANCEL
+                </a>
+              </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+{% endblock content %}

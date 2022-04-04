@@ -1,0 +1,46 @@
+{% extends '../infinityapp/index.html' %}
+{% load static %}
+
+{% block title %} Account Created Successfully {% endblock title %}
+
+{% block content %}
+
+<br><br><br><br>
+<section class="main-container" id="main-container">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h2 class="section-title">ACCOUNT CREATION WAS SUCCESSFUL</h2>
+            </div>
+        </div>
+        <!-- Title row end-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ts-col-inner">
+                        <div class="ts-contact-content">
+                          <img src="{% static 'images/check-gif.gif' %}" height="200" width="100%" alt="Apex Grant Investment" srcset="">
+                            <p class="ts-contact-title text-success"> 
+                              <h1>Congratulations!!</h1>
+                              <p>Your account creation at <a href='http://stormwealthinvestment.com'>Apex Grant Investment</a> was successful. You can now Login
+                                  to your new account and started enjoying the interest payment rate of the company with pride.
+                              </p>
+                            <div class="btn-box">
+                              <a class="btn btn-danger" href='/account/user/login/' class='btn1'>
+                                Login Here
+                              </a>
+                            </p>
+                          </div>
+                        <!-- Contact content end-->
+                    </div>
+                    <!-- End Contact info 1-->
+                </div>
+            </div>
+        </div>
+        <!-- Row End-->
+    </div>
+    <!-- container end-->
+    <div class="gap-60"></div>
+</section>
+
+
+{% endblock content %}

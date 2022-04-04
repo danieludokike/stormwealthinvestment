@@ -1,0 +1,446 @@
+{% extends '../infinityapp/index.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block title %} User Dashboard {% endblock title %}
+
+
+{% block content %}
+
+<div class="header-bg header-bg-1"></div>
+<div class="position-fixed overflow-hidden" style="z-index: 2000;top: 0; right: 0">
+  <div id="google-translate-element"></div>
+</div>
+
+
+<div class="fixed-top">
+  <div class="appbar-area sticky-black">
+    <div class="container">
+      <div class="appbar-container">
+        <div class="appbar-item appbar-actions">
+          <div class="appbar-action-item">
+            <a href="#" class="appbar-action-bar" data-bs-toggle="modal" data-bs-target="#sidebarDrawer"><i
+                class="flaticon-menu"></i></a>
+          </div>
+        </div>
+        <div class="appbar-item appbar-brand me-auto">
+          <a href="/">
+            <img src="{% static 'images/StormWealth.png' %}" width="200px" height="20px" alt="logo" class="main-logo">
+          </a>
+        </div>
+        <div class="appbar-item appbar-options">
+          <div class="appbar-option-item appbar-option-notification">
+
+
+          </div>
+          <div class="appbar-option-item appbar-option-profile">
+            <a href="{% url 'userdashboard:user_profile' %}"><img src="{% static 'images/user.jpg' %}" alt="profile"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="body-content body-content-lg">
+  <div class="container">
+    <div class="container">
+      <div class="mb-3" style="max-height: 300px">
+        <div class="glide">
+          <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides">
+              <li class="glide__slide">
+                <div class="account-card" style="height:100%">
+                  <div class="card-header">
+                    <div class="header-item">
+                      <h2>Welcome, {{request.user}}</h2>
+                    </div>
+                    <div class="header-item">
+                      <span class="badge bg-danger">ACTIVE</span>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="item-1">
+                      <strong>Earning {{rate}}%</strong>
+                    </div>
+                    <div class="item-2">
+                      <h2 class="main-text">${{balance|intcomma}}</h2>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="glide__bullets" data-glide-el="controls[nav]">
+            <button class="glide__bullet" data-glide-dir="=0"></button>
+          </div>
+        </div>
+      </div>
+
+
+      <section class="ts-services bg-pattern-2" id="ts-services">
+        <div class="container">
+           <!-- Title row end-->
+           <div class="row">
+              <!-- Col 1 end-->
+              <div class="col-lg-4 col-md-12">
+                 <div class="ts-service-box">
+                    <div class="ts-service-image-wrapper">
+                       <img class="img-fluid" src="{% static 'images/deposit.jpeg' %}" height="200px" alt="">
+                    </div>
+                    <div class="ts-service-content">
+                       <span class="ts-service-icon">
+                          <i class="icon icon-pie-chart2"></i>
+                       </span>
+                       <h3 class="service-title">Fund deposit: ${{deposit|intcomma}}</h3>
+                       <div class="pricing-list">
+                          <a class="btn btn--secondary" href="{% url 'userdashboard:account_details' %}">
+                             <button class="btn main-btn main-btn-lg full-width mb-10">View earnings</button>
+                          </a>
+    
+                          </ul>
+                       </div>
+                    </div>
+                 </div>
+                 <!-- Service2 end-->
+              </div>
+              <!-- Col 2 end-->
+              <div class="col-lg-4 col-md-12">
+                 <div class="ts-service-box">
+                    <div class="ts-service-image-wrapper">
+                       <img class="img-fluid" src="{% static 'images/earning.jpeg' %}" height="200px" alt="">
+                    </div>
+                    <div class="ts-service-content">
+                       <span class="ts-service-icon">
+                          <i class="icon icon-pie-chart2"></i>
+                       </span>
+                       <h3 class="service-title">Earning through: {{ plan_type }} PLAN</h3>
+                       <div class="pricing-list">
+                        <a class="btn btn--secondary" href="{% url 'userdashboard:account_details' %}">
+                          <button class="btn main-btn main-btn-lg full-width mb-10">View earnings</button>
+                       </a>
+                          </ul>
+                       </div>
+                    </div>
+                 </div>
+                 <!-- Service3 end-->
+              </div>
+              <!-- Col 3 end-->
+    
+              <div class="col-lg-4 col-md-12">
+                 <div class="ts-service-box">
+                    <div class="ts-service-image-wrapper">
+                       <img class="img-fluid" src="{% static 'images/percentage.png' %}" height="200px" alt="">
+                    </div>
+                    <div class="ts-service-content">
+                       <span class="ts-service-icon">
+                          <i class="icon icon-pie-chart2"></i>
+                       </span>
+                       <h3 class="service-title">Earning Rate: {{rate}}%</h3>
+                       <div class="pricing-list">
+                        <a class="btn btn--secondary" href="{% url 'userdashboard:account_details' %}">
+                          <button class="btn main-btn main-btn-lg full-width mb-10">View earnings</button>
+                       </a>
+    
+                          </ul>
+                       </div>
+                    </div>
+                 </div>
+                 <!-- Service4 end-->
+              </div>
+              <!-- Col 4 end-->
+           </div>
+    
+        </div>
+        <!-- Container end-->
+     </section>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title">View transactions</h5>
+            <a href="{% url 'userdashboard:account_details' %}">View all</a>
+          </div>
+          <hr>
+          <div class="form-group pb-15">
+            <label>Username</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="plan_type" value="{{request.user}}" id="id_wallet_address"
+                readonly>
+            </div>
+          </div>
+
+          <div class="form-group pb-15">
+            <label>Email address</label>
+            <div class="input-group">
+              <input type="text" class="form-control" value="{{request.user.email}}" readonly>
+            </div>
+          </div>
+
+          <div class="form-group pb-15">
+            <label>Referrer</label>
+            <div class="input-group">
+              <input type="text" class="form-control" value="{{referrer}}" readonly>
+            </div>
+          </div>
+
+          <div class="form-group pb-15">
+            <label>Referral link</label>
+            <div class="input-group">
+              <input id="id_ref_link"  type="txt" class="form-control" value="http://{{request.get_host}}/referral-link{{request.user.id}}/referrer={{request.user}}/" readonly>
+            <span class="input-group-text">
+              <i style="cursor:pointer; color: blue;" onclick="copyLink();">Copy link</i>
+          </span>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <section class="ts-services bg-pattern-2" id="ts-services">
+    <div class="container">
+       <div class="row text-center">
+          <div class="col-md-12">
+             <h2 class="section-title"><span>Profitable Plans</span>Investment Plans</h2>
+          </div>
+       </div>
+       <!-- Title row end-->
+       <div class="row">
+          <div class="col-lg-3 col-md-12">
+             <div class="ts-service-box">
+                <div class="ts-service-image-wrapper">
+                   <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                </div>
+                <div class="ts-service-content">
+                   <span class="ts-service-icon">
+                      <i class="icon icon-pie-chart2"></i>
+                   </span>
+                   <h3 class="service-title">GENERAL PLAN</h3>
+                   <div class="pricing-price">
+                      <p><span class="currency">1.9%</span><span class="time"> Daily</span></p>
+                   </div>
+                   <div class="pricing-list">
+                      <p>Plan description.</p>
+                      <hr>
+                      <p>Instant Deposit</p>
+                      <hr>
+                      <p>minimum: $100</p>
+                      <hr>
+                      <p>max: $999</p>
+                      <hr>
+                      <p>percentage: 1.9%</p>
+                      <hr>
+                      <p>duration: 7 Days</p>
+                      <hr>
+                      <p>Ref bonus: 15%</p>
+                      <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                         <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                      </a>
+
+                      </ul>
+                   </div>
+                </div>
+             </div>
+             <!-- Service1 end-->
+          </div>
+          <!-- Col 1 end-->
+          <div class="col-lg-3 col-md-12">
+             <div class="ts-service-box">
+                <div class="ts-service-image-wrapper">
+                   <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                </div>
+                <div class="ts-service-content">
+                   <span class="ts-service-icon">
+                      <i class="icon icon-pie-chart2"></i>
+                   </span>
+                   <h3 class="service-title">TRILLER PLAN</h3>
+                   <div class="pricing-price">
+                      <p><span class="currency">2.8%</span><span class="time"> Daily</span></p>
+                   </div>
+                   <div class="pricing-list">
+                      <p>Plan description.</p>
+                      <hr>
+                      <p>Instant Deposit</p>
+                      <hr>
+                      <p>minimum: $1,000</p>
+                      <hr>
+                      <p>max: $4,999</p>
+                      <hr>
+                      <p>percentage: 2.8%</p>
+                      <hr>
+                      <p>duration: 7 Days</p>
+                      <hr>
+                      <p>Ref bonus: 15%</p>
+                      <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                         <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                      </a>
+
+                      </ul>
+                   </div>
+                </div>
+             </div>
+             <!-- Service2 end-->
+          </div>
+          <!-- Col 2 end-->
+          <div class="col-lg-3 col-md-12">
+             <div class="ts-service-box">
+                <div class="ts-service-image-wrapper">
+                   <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                </div>
+                <div class="ts-service-content">
+                   <span class="ts-service-icon">
+                      <i class="icon icon-pie-chart2"></i>
+                   </span>
+                   <h3 class="service-title">PRO PLAN</h3>
+                   <div class="pricing-price">
+                      <p><span class="currency">3.9%</span><span class="time"> Daily</span></p>
+                   </div>
+                   <div class="pricing-list">
+                      <p>Plan description.</p>
+                      <hr>
+                      <p>Instant Deposit</p>
+                      <hr>
+                      <p>minimum: $5,000</p>
+                      <hr>
+                      <p>max: $9,999</p>
+                      <hr>
+                      <p>percentage: 3.9%</p>
+                      <hr>
+                      <p>duration: 7 Days</p>
+                      <hr>
+                      <p>Ref bonus: 15%</p>
+                      <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                         <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                      </a>
+
+                      </ul>
+                   </div>
+                </div>
+             </div>
+             <!-- Service3 end-->
+          </div>
+          <!-- Col 3 end-->
+
+          <div class="col-lg-3 col-md-12">
+             <div class="ts-service-box">
+                <div class="ts-service-image-wrapper">
+                   <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+                </div>
+                <div class="ts-service-content">
+                   <span class="ts-service-icon">
+                      <i class="icon icon-pie-chart2"></i>
+                   </span>
+                   <h3 class="service-title">GENERAL PLAN</h3>
+                   <div class="pricing-price">
+                      <p><span class="currency">5.5%</span><span class="time"> Daily</span></p>
+                   </div>
+                   <div class="pricing-list">
+                      <p>Plan description.</p>
+                      <hr>
+                      <p>Instant Deposit</p>
+                      <hr>
+                      <p>minimum: $10,000</p>
+                      <hr>
+                      <p>max: Unlimited</p>
+                      <hr>
+                      <p>percentage: 5.5%</p>
+                      <hr>
+                      <p>duration: 7 Days</p>
+                      <hr>
+                      <p>Ref bonus: 15%</p>
+                      <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                         <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                      </a>
+
+                      </ul>
+                   </div>
+                </div>
+             </div>
+             <!-- Service4 end-->
+          </div>
+          <!-- Col 4 end-->
+       </div>
+
+    </div>
+    <!-- Container end-->
+ </section>
+
+
+<div class="app-navbar">
+  <div class="container">
+    <div class="navbar-content ">
+      <div class="navbar-content-item">
+        <a href="userdashboard:user_profile" class="active">
+          <i class="flaticon-house"></i>
+          Dashboard
+        </a>
+      </div>
+      <div class="navbar-content-item">
+        <a href="{% url 'userdashboard:account_details' %}">
+          <i class="flaticon-invoice"></i>
+          Transactions
+        </a>
+      </div>
+      <div class="navbar-content-item">
+        <a href="{% url 'userdashboard:make_deposit' %}">
+          <i class="flaticon-savings"></i>
+          Fund Account
+        </a>
+      </div>
+      <div class="navbar-content-item">
+        <a href="{% url 'userdashboard:update_wallet' id %}">
+          <i class="flaticon-settings"></i>
+          Update Wallet Address
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="sidebarDrawer" tabindex="-1" aria-labelledby="sidebarDrawer" aria-hidden="true">
+  <div class="modal-dialog side-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header sidebar-modal-header">
+        <div class="sidebar-profile-info">
+          <div class="sidebar-profile-thumb">
+            <img src="{% static 'images/user.jpg' %}" alt="profile">
+          </div>
+          <div class="sidebar-profile-text">
+            <h3>{{request.user}}</h3>
+            <p><a href="#">${{balance|intcomma}}</a></p>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="sidebar-nav">
+          <div class="sidebar-nav-item">
+            <h3>Menu</h3>
+            <ul class="sidebar-nav-list">
+              <li><a href="{% url 'userdashboard:user_profile' %}" class="active"><i class="flaticon-house"></i>
+                  Dashboard</a></li>
+              <li><a href="{% url 'userdashboard:account_details' %}"><i class="flaticon-invoice"></i>
+                  Transactions</a></li>
+              <li><a href="{% url 'userdashboard:make_deposit' %}"><i class="flaticon-savings"></i> Add
+                  Funds</a></li>
+              <li><a href="{% url 'userdashboard:request_withdraw' %}"><i class="flaticon-invoice"></i> Withdraw
+                  Fund</a></li>
+              <li><a href="{% url 'userdashboard:update_wallet' id %}"><i class="flaticon-settings"></i>
+                  Update Wallet Addresses</a></li>
+                  <li><a href="{% url 'password_change' %}"><i class="flaticon-settings"></i>
+                    Change Password</a></li>
+              <li><a  href="{% url 'userdashboard:logout' %}"><i class="flaticon-logout"></i> Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

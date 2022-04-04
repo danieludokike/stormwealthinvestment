@@ -1,0 +1,100 @@
+{% extends '../infinityapp/index.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} DEPOSIT CONFIRMATION {% endblock title %}
+
+
+{% block content %}
+
+<div>
+  <div class="header-bg header-bg-1"></div>
+  <div class="position-fixed overflow-hidden" style="z-index: 2000;top: 0; right: 0">
+    <div id="google-translate-element"></div>
+  </div>
+  <div class="fixed-top">
+    <div class="appbar-area sticky-black">
+      <div class="container">
+        <div class="appbar-container">
+          <div class="appbar-item appbar-page-title mx-auto mt-5">
+            <h3>CONFIRM DEPOSIT</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="body-content body-content-lg">
+    <div class="container">
+      <div class="container">
+
+        <div class="page-header">
+          <div class="page-header-title page-header-item">
+            <h3>DEPOSIT CONFIRMATION</h3>
+          </div>
+        </div>
+
+        <br />
+        {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-danger text-center" role="alert">
+          {{ msg }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <br>
+
+
+        <div class="authentication-form pb-15">
+          {% if current_amount > 0 %}
+          <small class="text-warning">Note: You have an active investment that's already accumulating. If you proceed to make this payment, you have to make the deposit first, then It will be added to the current balance and your accumulation will start the day the deposit is confirmed! Or you may consider reinvesting the current balance</small>
+        {% endif %}
+        <br>
+        <hr>
+          <form action="{% url 'userdashboard:process_deposit' %}" method="post" novalidate>
+            {% csrf_token %}
+            <div class="form-group pb-15">
+              <label>Selected Plan</label>
+              <div class="input-group">
+                <input type="text" class="form-control" name="plan_type" value="{{plan_type}}" id="id_wallet_address"
+                  readonly>
+              </div>
+            </div>
+
+            <div class="form-group pb-15">
+              <label>Cryptocurrency</label>
+              <div class="input-group">
+                <input type="text" class="form-control" value="{{coin_type}}" readonly>
+              </div>
+            </div>
+
+            <div class="form-group pb-15">
+              <label>Amount ($)</label>
+              <div class="input-group">
+                <input type="number" class="form-control" name="amount" value="{{amount}}" readonly>
+              </div>
+            </div>
+
+            <div class="form-group pb-15">
+              <label>(%) Earning for 5 days</label>
+              <div class="input-group">
+                <input type="text" class="form-control" name="percentage" value="{{percentage}}" readonly>
+              </div>
+            </div>
+
+            <button class="btn main-btn main-btn-lg full-width mb-10">PROCEED TO MAKE PAYMENT</button>
+            <a class="btn btn-block btn-danger" href="{% url 'userdashboard:make_deposit' %}" type="submit">
+              UPDATE TRANSACTION
+              </a>
+              </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+{% endblock content %}

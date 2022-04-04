@@ -1,0 +1,66 @@
+{% extends '../infinityapp/index.html' %}
+{% load static %}
+
+{% block title %} Our Services{% endblock title %}
+
+{% block content %}
+
+<div class="banner-area" id="banner-area" style="background-image:url(../static/static/images/banner/banner2.jpg);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="banner-heading">
+                    <h1 class="banner-title">Services</h1>
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'apexapp:home' %}">Home</a></li>
+                        <li>Services</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- Col end-->
+        </div>
+        <!-- Row end-->
+    </div>
+    <!-- Container end-->
+</div>
+
+<section id="ts-features-light" class="ts-features-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 text-center">
+                <div class="ts-feature-box">
+                    <div class="ts-feature-info">
+                        <i class="icon icon-shield2"></i>
+                        <h3 class="ts-feature-title">Security In Investment</h3>
+                        <p>We’re working to help safeguard your sensitive account information, with encryption technology. Enroll now</p>
+                    </div>
+                </div>
+                <!-- feature box-1 end-->
+            </div>
+            <!-- col-1 end-->
+            <div class="col-lg-4 text-center border-left">
+                <div class="ts-feature-box">
+                    <div class="ts-feature-info">
+                        <i class="icon icon-hand"></i>
+                        <h3 class="ts-feature-title">Control Your Investment</h3>
+                        <p>Your investment are highly secured on our platform. Make it your priority investing on our platform as we make it our priority giving you the best. Get the best security you have dreamed by investing with us now.</p>
+                    </div>
+                </div>
+                <!-- feature box-2 end-->
+            </div>
+            <!-- col-2 end-->
+            <div class="col-lg-4 text-center border-left">
+                <div class="ts-feature-box">
+                    <div class="ts-feature-info">
+                        <i class="icon icon-tools"></i>
+                        <h3 class="ts-feature-title">Convenient Investment</h3>
+                        <p>You decide when it’s time to invest; manage your Chase investment from one central location.</p>
+                    </div>
+                </div>
+                <!-- feature box-2 end-->
+            </div>
+            <!-- col-3 end-->
+        </div>
+    </div>
+</section>
+{% endblock content %}

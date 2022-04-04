@@ -1,0 +1,43 @@
+{% extends '../infinityapp/index.html' %}
+{% load static %}
+
+{% block title %} Copy wallet address {% endblock title %}
+
+{% block content %}
+
+<br><br><br><br>
+<section class="main-container" id="main-container">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h2 class="section-title"><span>Copy wallet address and proceed to make payment</span>Transaction saved</h2>
+            </div>
+        </div>
+        <!-- Title row end-->
+        <p style="display:none;" id="copy-success" class="text-success">Company  {{ style|title }} wallet address has been copied. Proceed and make the exact payment.</p>
+        <div id="btn-copy" class="row">
+            <div class="col-lg-12">
+                <div class="ts-col-inner">
+                        <div class="ts-contact-content">
+                          <img src="{% static 'images/check-gif.gif' %}" height="200" width="100%" alt="Stormwealth Investment" srcset="">
+                            <p class="ts-contact-title text-success"> Copy the wallet address and proceed to make your payment.
+                              <br>MAKE SURE YOU PAY ONLY ${{amount}} Worth of {{ style|title }} to the wallet address below</p>
+                          </div>
+                        <!-- Contact content end-->
+                    </div>
+                    <!-- End Contact info 1-->
+                </div>
+                <input type="text" class="form-control" name="wallet_address" value="{{admin_wallet}}" id="id_wallet_address" readonly>
+                <br />
+                <br>
+                <button onclick="copyWalletAddr()"  class="btn main-btn main-btn-lg full-width mb-10">CLICK HERE TO COPY WALLET ADDRESS</button>
+            </div>
+        </div>
+        <!-- Row End-->
+    </div>
+    <!-- container end-->
+    <div class="gap-60"></div>
+</section>
+
+
+{% endblock content %}

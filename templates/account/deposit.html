@@ -1,0 +1,258 @@
+{% extends '../infinityapp/index.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} DEPOSIT FUNDS {% endblock title %}
+
+
+{% block content %}
+
+<div>
+  <div class="header-bg header-bg-1"></div>
+  <div class="position-fixed overflow-hidden" style="z-index: 2000;top: 0; right: 0">
+    <div id="google-translate-element"></div>
+  </div>
+  <div class="fixed-top">
+    <div class="appbar-area sticky-black">
+      <div class="container">
+        <div class="appbar-container">
+          <div class="appbar-item appbar-page-title mx-auto mt-5">
+            <h3>DEPOSIT FUND IN YOUR ACCOUNT</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="body-content body-content-lg">
+    <div class="container">
+      <div class="container">
+
+        <div class="page-header">
+          <div class="page-header-title page-header-item">
+            <h3>SELECT PLAN, CRYPTOCURRENCY AND AMOUNT</h3>
+          </div>
+        </div>
+
+        <br />
+        {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-danger text-center" role="alert">
+          {{ msg }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <br>
+
+
+        <div class="authentication-form pb-15">
+          <form action="." method="post" novalidate>
+            {% csrf_token %}
+            <div class="form-group pb-15">
+              <label>Selected Plan</label>
+              <div class="input-group">
+                {% render_field deposit_form.plan_type class="form-control" %}
+              </div>
+            </div>
+
+            <div class="form-group pb-15">
+              <label>CRYPTOCURRENCY (BITCOIN, EHTEREUM, etc)</label>
+              <div class="input-group">
+                {% render_field deposit_form.last_coin_paid class="form-control" %}<br />
+              </div>
+            </div>
+
+            <div class="form-group pb-15">
+              <label>Amount to Deposit ($)</label>
+              <div class="input-group">
+                <input type="number" class="form-control" name="amount" placeholder="$0.00" ><br><br>
+              </div>
+            </div>
+
+            <button class="btn main-btn main-btn-lg full-width mb-10">MAKE DEPOSIT</button>
+            <a class="btn btn-block btn-secondary" href="{% url 'userdashboard:make-deposit-from-account' %}">
+              SPEND FROM ACCOUNT BALANCE
+            </a>
+                <br>
+                <a class="btn btn-block btn-danger" href="{% url 'userdashboard:user_profile' %}" >
+                  CANCEL
+                </a>
+              </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+  <section class="ts-services bg-pattern-2" id="ts-services">
+   <div class="container">
+      <div class="row text-center">
+         <div class="col-md-12">
+            <h2 class="section-title"><span>Profitable Plans</span>Investment Plans</h2>
+         </div>
+      </div>
+      <!-- Title row end-->
+      <div class="row">
+         <div class="col-lg-3 col-md-12">
+            <div class="ts-service-box">
+               <div class="ts-service-image-wrapper">
+                  <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+               </div>
+               <div class="ts-service-content">
+                  <span class="ts-service-icon">
+                     <i class="icon icon-pie-chart2"></i>
+                  </span>
+                  <h3 class="service-title">GENERAL PLAN</h3>
+                  <div class="pricing-price">
+                     <p><span class="currency">1.9%</span><span class="time"> Daily</span></p>
+                  </div>
+                  <div class="pricing-list">
+                     <p>Plan description.</p>
+                     <hr>
+                     <p>Instant Deposit</p>
+                     <hr>
+                     <p>minimum: $100</p>
+                     <hr>
+                     <p>max: $999</p>
+                     <hr>
+                     <p>percentage: 1.9%</p>
+                     <hr>
+                     <p>duration: 7 Days</p>
+                     <hr>
+                     <p>Ref bonus: 15%</p>
+                     <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                        <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                     </a>
+
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <!-- Service1 end-->
+         </div>
+         <!-- Col 1 end-->
+         <div class="col-lg-3 col-md-12">
+            <div class="ts-service-box">
+               <div class="ts-service-image-wrapper">
+                  <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+               </div>
+               <div class="ts-service-content">
+                  <span class="ts-service-icon">
+                     <i class="icon icon-pie-chart2"></i>
+                  </span>
+                  <h3 class="service-title">TRILLER PLAN</h3>
+                  <div class="pricing-price">
+                     <p><span class="currency">2.8%</span><span class="time"> Daily</span></p>
+                  </div>
+                  <div class="pricing-list">
+                     <p>Plan description.</p>
+                     <hr>
+                     <p>Instant Deposit</p>
+                     <hr>
+                     <p>minimum: $1,000</p>
+                     <hr>
+                     <p>max: $4,999</p>
+                     <hr>
+                     <p>percentage: 2.8%</p>
+                     <hr>
+                     <p>duration: 7 Days</p>
+                     <hr>
+                     <p>Ref bonus: 15%</p>
+                     <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                        <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                     </a>
+
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <!-- Service2 end-->
+         </div>
+         <!-- Col 2 end-->
+         <div class="col-lg-3 col-md-12">
+            <div class="ts-service-box">
+               <div class="ts-service-image-wrapper">
+                  <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+               </div>
+               <div class="ts-service-content">
+                  <span class="ts-service-icon">
+                     <i class="icon icon-pie-chart2"></i>
+                  </span>
+                  <h3 class="service-title">PRO PLAN</h3>
+                  <div class="pricing-price">
+                     <p><span class="currency">3.9%</span><span class="time"> Daily</span></p>
+                  </div>
+                  <div class="pricing-list">
+                     <p>Plan description.</p>
+                     <hr>
+                     <p>Instant Deposit</p>
+                     <hr>
+                     <p>minimum: $5,000</p>
+                     <hr>
+                     <p>max: $9,999</p>
+                     <hr>
+                     <p>percentage: 3.9%</p>
+                     <hr>
+                     <p>duration: 7 Days</p>
+                     <hr>
+                     <p>Ref bonus: 15%</p>
+                     <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                        <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                     </a>
+
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <!-- Service3 end-->
+         </div>
+         <!-- Col 3 end-->
+
+         <div class="col-lg-3 col-md-12">
+            <div class="ts-service-box">
+               <div class="ts-service-image-wrapper">
+                  <img class="img-fluid" src="{% static 'images/plan.png' %}" height="200px" alt="">
+               </div>
+               <div class="ts-service-content">
+                  <span class="ts-service-icon">
+                     <i class="icon icon-pie-chart2"></i>
+                  </span>
+                  <h3 class="service-title">GENERAL PLAN</h3>
+                  <div class="pricing-price">
+                     <p><span class="currency">5.5%</span><span class="time"> Daily</span></p>
+                  </div>
+                  <div class="pricing-list">
+                     <p>Plan description.</p>
+                     <hr>
+                     <p>Instant Deposit</p>
+                     <hr>
+                     <p>minimum: $10,000</p>
+                     <hr>
+                     <p>max: Unlimited</p>
+                     <hr>
+                     <p>percentage: 5.5%</p>
+                     <hr>
+                     <p>duration: 7 Days</p>
+                     <hr>
+                     <p>Ref bonus: 15%</p>
+                     <a class="btn btn--secondary" href="{% url 'userdashboard:login' %}">
+                        <button class="btn main-btn main-btn-lg full-width mb-10">Invest Now</button>
+                     </a>
+
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <!-- Service4 end-->
+         </div>
+         <!-- Col 4 end-->
+      </div>
+
+   </div>
+   <!-- Container end-->
+</section>
+
+</div>
+</div>
+{% endblock content %}

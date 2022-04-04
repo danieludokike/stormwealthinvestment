@@ -1,0 +1,68 @@
+{% extends '../infinityapp/index.html' %}
+{% load static %}
+
+{% block title %} Contact Us {% endblock title %}
+
+{% block content %}
+
+<div class="banner-area" id="banner-area" style="background-image:url(../static/static/images/banner/banner5.jpg);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="banner-heading">
+                    <h1 class="banner-title">Contact Us</h1>
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'apexapp:home' %}">Home</a></li>
+                        <li>Contact Us</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- Col end-->
+        </div>
+        <!-- Row end-->
+    </div>
+    <!-- Container end-->
+</div>
+
+<section class="main-container" id="main-container">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h2 class="section-title"><span>Send Us Message</span>Contact Us</h2>
+            </div>
+        </div>
+        <!-- Title row end-->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="ts-col-inner">
+                    <div class="ts-contact-info box-border"><span class="ts-contact-icon float-left"><i class="icon icon-phone3"></i></span>
+                        <div class="ts-contact-content">
+                            <h3 class="ts-contact-title">Call Us</h3>
+                            <p>Request to speak with an Agent</p>
+                        </div>
+                        <!-- Contact content end-->
+                    </div>
+                    <!-- End Contact info 1-->
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ts-col-inner">
+                    <div class="ts-contact-info box-border"><span class="ts-contact-icon float-left"><i class="icon icon-envelope"></i></span>
+                        <div class="ts-contact-content">
+                            <h3 class="ts-contact-title">Mail Us</h3>
+                            <p>support@stormwealthinvestment.com.com</p>
+                        </div>
+                        <!-- Contact content end-->
+                    </div>
+                    <!-- End Contact info 1-->
+                </div>
+            </div>
+        </div>
+        <!-- Row End-->
+    </div>
+    <!-- container end-->
+    <div class="gap-60"></div>
+</section>
+
+
+{% endblock content %}
