@@ -87,11 +87,8 @@ def register_view(request):
         bitcoin_address = request.POST.get("bitcoin_address", None)
         bitcoin_cash_address = request.POST.get("bitcoin_cash_address", None)
         ethereum_address = request.POST.get("ethereum_address", None)
-        perfect_money_address = request.POST.get("perfect_money_address", None)
-        usdt_trc20_address = request.POST.get("usdt_trc20_address", None)
-        usdt_erc20_address = request.POST.get("usdt_erc20_address", None)
-        bnb_address = request.POST.get("bnb_address", None)
-        payeer_address = request.POST.get("payeer_address", None)
+        stellar_address = request.POST.get("stellar_address", None)
+        litecoin_address = request.POST.get("litecoin_address", None)
 
         """CHECKING IF THE FIELD IS EMPTY"""
         if is_empty(first_name, last_name, username, email, password, password2):
@@ -147,11 +144,9 @@ def register_view(request):
         user_profile.bitcoin_address = bitcoin_address
         user_profile.bitcoin_cash_address = bitcoin_cash_address
         user_profile.ethereum_address = ethereum_address
-        user_profile.perfect_money_address = perfect_money_address
-        user_profile.usdt_trc20_address = usdt_trc20_address
-        user_profile.usdt_erc20_address = usdt_erc20_address
-        user_profile.bb_address = bnb_address
-        user_profile.payeer_address = payeer_address
+        user_profile.stellar_address = stellar_address
+        user_profile.litecoin_address = litecoin_address
+
 
         # CREATING USER TRANSACTIONS
         user_transaction = DepositTransaction(user=user)
@@ -259,7 +254,7 @@ def user_profile_view(request):
         withdrawal_msg = "No current deposit accumulating!"
         
         deposit = round(float(deposit_transactions.user_amount), 2) # THE CURRENT AMOUNT DEPOSITED BY THE USER
-        deposit_transactions.current_balance = deposit + round((5 * (round((float(rate)/100) * deposit, 2)) - aval_amount), 2)
+        deposit_transactions.current_balance = deposit + round((7 * (round((float(rate)/100) * deposit, 2)) - aval_amount), 2)
         deposit_transactions.save()
 
         balance = deposit_transactions.current_balance
@@ -268,19 +263,19 @@ def user_profile_view(request):
         
         days = (today - payment_date).days
               # MAKING CALCULATION AND PRINTING TO USER EARNING RECORD
-        if int(days) < 5 and deposit > 0:
+        if int(days) < 7 and deposit > 0:
             deposit_transactions.current_balance = round((deposit + (int(days) * ( (float(rate)/100) * deposit)) - aval_amount), 2)
             deposit_transactions.save()
             balance = deposit_transactions.current_balance
-            withdrawal_msg = f"You have {5-int(days)} days remaining for withdrawal"
+            withdrawal_msg = f"You have {7-int(days)} days remaining for withdrawal"
 
-        elif days == 5 and deposit > 0:
+        elif days == 7 and deposit > 0:
             deposit_transactions.current_balance = round((deposit + (int(days) * ( (float(rate)/100) * deposit)) - aval_amount), 2)
             deposit_transactions.save()
             balance = deposit_transactions.current_balance
             withdrawal_msg = f"Your balance is ready for withdrawal."
 
-        elif days > 5 and deposit > 0:
+        elif days > 7 and deposit > 0:
             withdrawal_msg = f"Your balance is ready for withdrawal."
         
 
@@ -316,14 +311,14 @@ def user_account_details(request):
         today = datetime.now().date() # THE CURRENT DATE
         
         deposit = round(float(deposit_transactions.user_amount), 2) # THE CURRENT AMOUNT DEPOSITED BY THE USER
-        deposit_transactions.current_balance = deposit + (5 * ( (float(rate)/100) * deposit))
+        deposit_transactions.current_balance = deposit + (7 * ( (float(rate)/100) * deposit))
         deposit_transactions.save()
 
         payment_date = deposit_transactions.date_deposited # DATE OF PAYMENT
         
         days = (today - payment_date).days
         for i in range(int(days)+1):
-            if i > 5:
+            if i > 7:
                 break;
             else:
                 if i == 0 and deposit > 0:
@@ -380,8 +375,8 @@ def deposit_view(request):
         coin_type = request.POST.get("last_coin_paid", None)
         amount = request.POST.get("amount", None).strip()
 
-        plan_types = ["MINOR", "PREMIUM", "ULTIMATE", "MEGA"]
-        COIN_TYPE = ["BITCOIN", "BITCOIN CASH", "ETHEREUM", "PERFECT MONEY", "USDT TRC20", "USDT ERC20", "BNB", "PAYEER"]
+        plan_types = ["GENERA", "TRILLER", "PRO", "EXPERT"]
+        COIN_TYPE = ["BITCOIN", "BITCOIN CASH", "ETHEREUM", "STELLAR", "LITECOIN"]
 
         # CHECKING IF THE COIN SELECTED IS THE RIGHT ONE
         if coin_type not in COIN_TYPE:
@@ -403,33 +398,33 @@ def deposit_view(request):
             return render(request, template, {"deposit_form": deposit_form})
         
         if plan_type.strip() == plan_types[0]:
-            if float(amount) < 100 or float(amount) > 4999:
-                messages.error(request, f"Please enter appropriate amount. {plan_types[0]} PLAN deposit range: [$100 - $4,999]")
+            if float(amount) < 100 or float(amount) > 999:
+                messages.error(request, f"Please enter appropriate amount. {plan_types[0]} PLAN deposit range: [$100 - $999]")
                 return render(request, template, {"deposit_form": deposit_form})
 
         if plan_type.strip() == plan_types[1]:
-            if float(amount) < 5000 or float(amount) > 9999:
-                messages.error(request, f"Please enter appropriate amount. {plan_types[1]} PLAN deposit range: [$5,000 - $9,999]")
+            if float(amount) < 1_000 or float(amount) > 4_999:
+                messages.error(request, f"Please enter appropriate amount. {plan_types[1]} PLAN deposit range: [$1,000 - $4,999]")
                 return render(request, template, {"deposit_form": deposit_form})
 
         if plan_type.strip() == plan_types[2]:
-            if float(amount) < 10000 or float(amount) > 19999:
-                messages.error(request, f"Please enter appropriate amount. {plan_types[2]} PLAN deposit range: [$10, 000 -$19,999]")
+            if float(amount) < 5_000 or float(amount) > 9_999:
+                messages.error(request, f"Please enter appropriate amount. {plan_types[2]} PLAN deposit range: [$5, 000 -$9,999]")
                 return render(request, template, {"deposit_form": deposit_form})
 
         if plan_type.strip() == plan_types[3]:
-            if float(amount) < 20000:
-                messages.error(request, f"Please enter appropriate amount. {plan_types[2]} PLAN deposit range: [$20, 000 AND ABOVE)")
+            if float(amount) < 10_000:
+                messages.error(request, f"Please enter appropriate amount. {plan_types[3]} PLAN deposit range: [$10, 000 AND ABOVE)")
                 return render(request, template, {"deposit_form": deposit_form})
 
         if plan_types[0] == plan_type:
-            percentage = "2"
+            percentage = "1.9"
         elif plan_types[1] == plan_type:
-            percentage = "2.5"
+            percentage = "2.8"
         elif plan_types[2] == plan_type:
-            percentage = "3"
+            percentage = "3.9"
         else:
-            percentage = "4"
+            percentage = "5.5"
             
         # IF ALL THE INPUTS ARE CORRECT FOR EACH PLAN PROCEED TO PROCESS PAYMENT
         context = {
@@ -462,9 +457,9 @@ def deposit_from_account_view(request):
     payment_date = user_deposit_tran.date_deposited
     
     can_withdraw = False
-    plan_type = "MINOR"
+    plan_type = "GENERAL"
     amount = "0.0"
-    percentage = "2%"
+    percentage = "1.9%"
 
     days = (today - payment_date).days
     # CHECKING IF THE BALANCE IS LESS THAN THE MINIMUM AMOUNT, 100 USD
@@ -499,7 +494,7 @@ def deposit_from_account_view(request):
             return HttpResponse("<h4 style='color: red;'>You did something wrong. Please start the process again.</h4>")
         
 
-        if plan_type not in ["MINOR", "PREMIUM", "ULTIMATE", "MEGA"]:
+        if plan_type not in ["GENERA", "TRILLER", "PRO", "EXPERT"]:
             return HttpResponse("<h4 style='color: red;'>You did something wrong. Please start the process again.</h4>")
         
 
@@ -573,21 +568,12 @@ def process_deposit(request):
         elif wallet_type == "ETHEREUM":
             coin_type_style = "ethereum"
             admin_wallet = AdminWalletAddress.objects.get(wallet_type="ETHEREUM").wallet_address
-        elif wallet_type == "PERFECT MONEY":
-            coin_type_style = "perfectmoney"
-            admin_wallet = AdminWalletAddress.objects.get(wallet_type="PERFECT MONEY").wallet_address
-        elif wallet_type == "USDT TRC20":
-            coin_type_style = "usdt"
-            admin_wallet = AdminWalletAddress.objects.get(wallet_type="USDT TRC20").wallet_address
-        elif wallet_type == "USDT ERC20":
-            coin_type_style = "usdt"
-            admin_wallet = AdminWalletAddress.objects.get(wallet_type="USDT ERC20").wallet_address
-        elif wallet_type == "BNB":
-            coin_type_style = "bnb"
-            admin_wallet = AdminWalletAddress.objects.get(wallet_type="BNB").wallet_address
-        elif wallet_type == "PAYEER":
-            coin_type_style = "payeer"
-            admin_wallet = AdminWalletAddress.objects.get(wallet_type="PAYEER").wallet_address
+        elif wallet_type == "STELLAR":
+            coin_type_style = "stellar"
+            admin_wallet = AdminWalletAddress.objects.get(wallet_type="STELLAR").wallet_address
+        elif wallet_type == "LITECOIN":
+            coin_type_style = "litecoin"
+            admin_wallet = AdminWalletAddress.objects.get(wallet_type="LITECOIN").wallet_address
         else:
             return HttpResponse("<h4>You did something wrong. Please start the process again.</h4>")
 
@@ -600,14 +586,14 @@ def process_deposit(request):
             per_check = float(percentage)
         except:
             return HttpResponse("<h4>You did something wrong. Please start the process again.</h4>")
-        
-        if plan_type not in ["MINOR", "PREMIUM", "ULTIMATE", "MEGA"]:
+
+        if plan_type not in ["GENERA", "TRILLER", "PRO", "EXPERT"]:
             return HttpResponse("<h4>You did something wrong. Please start the process again.</h4>")
 
         # SAVING THE WALLET ADDRESS USED FOR THE TRANSACTION
         user_profile = get_object_or_404(UserProfile, user=request.user)
-        
-        COINS = ["BITCOIN", "BITCOIN CASH", "ETHEREUM", "PERFECT MONEY", "USDT TRC20", "USDT ERC20", "BNB", "PAYEER"]
+
+        COINS = ["BITCOIN", "BITCOIN CASH", "ETHEREUM", "STELLAR", "LITECOIN"]
         if wallet_type not in COINS:
             messages.error(request, "Please select the wallet address for transaction")
             return redirect("userdashboard:request_withdraw")
@@ -623,27 +609,22 @@ def process_deposit(request):
         if wallet_type == COINS[2]:
             user_wallet_address = user_profile.ethereum_address
         if wallet_type == COINS[3]:
-            user_wallet_address = user_profile.perfect_money_address
+            user_wallet_address = user_profile.stellar_address
         if wallet_type == COINS[4]:
-            user_wallet_address = user_profile.usdt_trc20_address
-        if wallet_type == COINS[5]:
-            user_wallet_address = user_profile.usdt_erc20_address
-        if wallet_type == COINS[6]:
-            user_wallet_address = user_profile.bnb_address
-        if wallet_type == COINS[7]:
-            user_wallet_address = user_profile.payeer_address
+            user_wallet_address = user_profile.litecoin_address
+
         # CHECKING IF THE WALLET ADDRESS IS NONE OR INVALID
-        profile_id = UserProfile.objects.get(user=request.user).id
-        if user_wallet_address is None:
-            wallet_type = wallet_type.replace("_address", "").upper().replace("_", " ")
-            messages.error(request, f"Your {wallet_type} wallet address was not found. please update your wallet addresses for you to withdraw through it.")
-            return redirect(f"/account/user/update-wallet-addresses/{profile_id}/")
+        # profile_id = UserProfile.objects.get(user=request.user).id
+        # if user_wallet_address is None:
+        #     wallet_type = wallet_type.replace("_address", "").upper().replace("_", " ")
+        #     messages.error(request, f"Your {wallet_type} wallet address was not found. please update your wallet addresses for you to withdraw through it.")
+        #     return redirect(f"/account/user/update-wallet-addresses/{profile_id}/")
         
-        # CHECKING IF THE WALLET ADDRESS IS VALID
-        if len(user_wallet_address) < 5:
-            wallet_type = wallet_type.replace("_address", "").upper().replace("_", " ")
-            messages.error(request, f"Your {wallet_type} wallet address seems incomplete, valid wallet address ranges from 8 and above of character. Please update your wallet addresses")
-            return redirect(f"/account/user/update-wallet-addresses/{profile_id}/")
+        # # CHECKING IF THE WALLET ADDRESS IS VALID
+        # if len(user_wallet_address) < 5:
+        #     wallet_type = wallet_type.replace("_address", "").upper().replace("_", " ")
+        #     messages.error(request, f"Your {wallet_type} wallet address seems incomplete, valid wallet address ranges from 8 and above of character. Please update your wallet addresses")
+        #     return redirect(f"/account/user/update-wallet-addresses/{profile_id}/")
             
         # SAVING THE LATEST WALLET ADDRESS USED FOR TRANSACTION
         user_profile.wallet_address_used = user_wallet_address
@@ -714,12 +695,12 @@ def request_withdrawal(request):
     payment_date = user_deposit_tran.date_deposited
     
     days = (today - payment_date).days
-    if days >= 5 and user_deposit_tran.status == "APPROVED":
+    if days >= 7 and user_deposit_tran.status == "APPROVED":
         if request.method == "POST":
             amount_to_withdraw = request.POST.get("amount", None).strip()
             wallet_type = request.POST.get("wallet_type", None)
 
-            COINS = ["BITCOIN", "BITCOIN CASH", "ETHEREUM", "PERFECT MONEY", "USDT TRC20", "USDT ERC20", "BNB", "PAYEER"]
+            COINS = ["BITCOIN", "BITCOIN CASH", "ETHEREUM", "STELLAR", "LITECOIN"]
             if wallet_type not in COINS:
                 messages.error(request, "Please select the wallet address for transaction")
                 return redirect("userdashboard:request_withdraw")
@@ -735,15 +716,9 @@ def request_withdrawal(request):
             if wallet_type == COINS[2]:
                 user_wallet_address = user_profile.ethereum_address
             if wallet_type == COINS[3]:
-                user_wallet_address = user_profile.perfect_money_address
+                user_wallet_address = user_profile.stellar_address
             if wallet_type == COINS[4]:
-                user_wallet_address = user_profile.usdt_trc20_address
-            if wallet_type == COINS[5]:
-                user_wallet_address = user_profile.usdt_erc20_address
-            if wallet_type == COINS[6]:
-                user_wallet_address = user_profile.bnb_address
-            if wallet_type == COINS[7]:
-                user_wallet_address = user_profile.payeer_address
+                user_wallet_address = user_profile.litecoin_address
 
             # CHECKING IF THE WALLET ADDRESS IS NONE OR INVALID
             profile_id = UserProfile.objects.get(user=request.user).id
@@ -816,13 +791,13 @@ def request_withdrawal(request):
         return render(request, template, {"user_detail":user_profile, "transactions": user_deposit_tran, "form": registration_form})
     
     # WHEN DAYS IS LESS THAN 5, BUT USER HAS ACCUMULATED PERCENTAGE INTEREST
-    elif days < 5 and aval_amount > 0 and user_deposit_tran.status == "APPROVED":
+    elif days < 7 and aval_amount > 0 and user_deposit_tran.status == "APPROVED":
         if request.method == "POST":
             amount_to_withdraw = request.POST.get("amount", None).strip()
             wallet_type = request.POST.get("wallet_type", None)
 
 
-            COINS = ["BITCOIN", "BITCOIN CASH", "ETHEREUM", "PERFECT MONEY", "USDT TRC20", "USDT ERC20", "BNB", "PAYEER"]
+            COINS = ["BITCOIN", "BITCOIN CASH", "ETHEREUM", "STELLAR", "LITECOIN"]
             if wallet_type not in COINS:
                 messages.error(request, "Please select the wallet address for transaction")
                 return redirect("userdashboard:request_withdraw")
@@ -838,15 +813,9 @@ def request_withdrawal(request):
             if wallet_type == COINS[2]:
                 user_wallet_address = user_profile.ethereum_address
             if wallet_type == COINS[3]:
-                user_wallet_address = user_profile.perfect_money_address
+                user_wallet_address = user_profile.stellar_address
             if wallet_type == COINS[4]:
-                user_wallet_address = user_profile.usdt_trc20_address
-            if wallet_type == COINS[5]:
-                user_wallet_address = user_profile.usdt_erc20_address
-            if wallet_type == COINS[6]:
-                user_wallet_address = user_profile.bnb_address
-            if wallet_type == COINS[7]:
-                user_wallet_address = user_profile.payeer_address
+                user_wallet_address = user_profile.litecoin_address
 
             # CHECKING IF THE WALLET ADDRESS IS NONE OR INVALID
             profile_id = UserProfile.objects.get(user=request.user).id
@@ -918,7 +887,7 @@ def request_withdrawal(request):
             send_mail(
             f"Withdrawal Requested",
             f"Hey {request.user}!! You have request for withdrawal; Amount: ${amount_to_withdraw}, Wallet Address: {user_profile.wallet_address_used}, Cryptocurrency: {wallet_type}" +
-            "If you are not aware of the action, contact the admin now",
+            " If you are not aware of the action, contact the admin now",
             settings.EMAIL_HOST_USER,
             [request.user.email]
             )
@@ -930,7 +899,7 @@ def request_withdrawal(request):
     else:
         err_text = """
         <p style="color: red;">OOPS!! Sorry you can't withdraw now.<br>
-        REASONS:<br>1. Your Balance is not due for withdrawal.<br>2.Deposit has not reached five (5) days of accumulation
+        REASONS:<br>1. Your Balance is not due for withdrawal.<br>2.Deposit has not reached seven (7) days of accumulation
         <br>3. You requested for a deposit which has not been approved.<br>Do chat the admin for assistance 
         </p>
         """
@@ -946,7 +915,7 @@ def withdraw_bonus(request):
         amount = request.POST.get("amount", None)
         wallet_type = request.POST.get("wallet_type", None)
         
-        COINS = ["BITCOIN", "BITCOIN CASH", "ETHEREUM", "PERFECT MONEY", "USDT TRC20", "USDT ERC20", "BNB", "PAYEER"]
+        COINS = ["BITCOIN", "BITCOIN CASH", "ETHEREUM", "STELLAR", "LITECOIN"] 
         if wallet_type not in COINS:
             messages.error(request, "Please select the wallet address for transaction")
             return redirect("userdashboard:request_withdraw")
@@ -962,15 +931,9 @@ def withdraw_bonus(request):
         if wallet_type == COINS[2]:
             user_wallet_address = user_profile.ethereum_address
         if wallet_type == COINS[3]:
-            user_wallet_address = user_profile.perfect_money_address
+            user_wallet_address = user_profile.stellar_address
         if wallet_type == COINS[4]:
-            user_wallet_address = user_profile.usdt_trc20_address
-        if wallet_type == COINS[5]:
-            user_wallet_address = user_profile.usdt_erc20_address
-        if wallet_type == COINS[6]:
-            user_wallet_address = user_profile.bnb_address
-        if wallet_type == COINS[7]:
-            user_wallet_address = user_profile.payeer_address
+            user_wallet_address = user_profile.litecoin_address
 
         # CHECKING IF THE WALLET ADDRESS IS NONE OR INVALID
         profile_id = UserProfile.objects.get(user=request.user).id
@@ -1053,9 +1016,8 @@ class UpdateWalletView(UpdateView):
     model = UserProfile
     fields = (
         "bitcoin_address", "bitcoin_cash_address",
-        "ethereum_address", "perfect_money_address",
-        "usdt_trc20_address", "usdt_erc20_address", "bnb_address",
-        "payeer_address",
+        "ethereum_address", "stellar_address",
+        "litcoin_address",
         )
     
 

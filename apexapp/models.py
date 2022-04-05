@@ -11,29 +11,26 @@ from account.utils import email_user_deposit, email_user_withdrawal
 
 # ====================CHOICES FOR SELECTING PRICE PLAN NAME AND EARNING RATE=========================================
 PLAN_TYPE = (
-    ("MINOR", "MINOR"),
-    ("PREMIUM", "PREMIUM"),
-    ("ULTIMATE", "ULTIMATE"),
-    ("MEGA", "MEGA"),
+    ("GENERAL", "GENERAL"),
+    ("TRILLER", "TRILLER"),
+    ("PRO", "PRO"),
+    ("EXPERT", "EXPERT"),
 )
 
 COIN_TYPE = (
     ("BITCOIN", "BITCOIN"),
     ("BITCOIN CASH", "BITCOIN CASH"),
     ("ETHEREUM", "ETHEREUM"),
-    ("PERFECT MONEY", "PERFECT MONEY"),
-    ("USDT TRC20", "USDT TRC20"),
-    ("USDT ERC20", "USDT ERC20"),
-    ("BNB", "BNB"),
-    ("PAYEER", "PAYEER"),
+    ("STELLAR", "STELLAR"),
+    ("LITECOIN", "LITECOIN")
     
 )
 
 EARNING_RATE = (
-    ("2%", "2%"),
-    ("2.5%", "2.5%"),
-    ("3%", "3%"),
-    ("4%", "4%")
+    ("1.9%", "1.9%"),
+    ("2.8%", "2.8%"),
+    ("3.9%", "3.9%"),
+    ("5.5%", "5.5%")
 )
 
 WITHDRAW_FROM = (
@@ -86,12 +83,12 @@ class DepositTransaction(models.Model):
         # ADDING TO AMOUNT_TO_ADD TO AMOUNT_DEPOSITED
         if self.status == "APPROVED":
             self.user_amount = float(self.user_amount) + float(self.amount_to_add)
-            self.referrer_bonus = float(self.amount_to_add)*(float(12/100))
+            self.referrer_bonus = float(self.amount_to_add)*(float(15/100))
 
             if referrer is not None:
                 # MAKING CHANGES TO THE BONUS AND AMOUNT TO ADD
                 referrer_bonus = ReferralBonus.objects.get(username=referrer)
-                referrer_bonus.accumulated_bonus = float(referrer_bonus.accumulated_bonus) + float(self.amount_to_add)*(float(12/100))
+                referrer_bonus.accumulated_bonus = float(referrer_bonus.accumulated_bonus) + float(self.amount_to_add)*(float(15/100))
                 referrer_bonus.save()
             self.amount_to_add = 0.0
 
@@ -162,18 +159,16 @@ class WithdrawalTransaction(models.Model):
 class UserProfile(models.Model):
     """RECORDS THE USER ACCOUNT DETAILS"""
     user = models.OneToOneField(User, related_name="user_profile", on_delete=models.CASCADE)
-    plan_type = models.CharField(max_length=10, choices=PLAN_TYPE, default="MINOR")
-    earning_rate = models.CharField(max_length=10, choices=EARNING_RATE, default="2%")
+    plan_type = models.CharField(max_length=10, choices=PLAN_TYPE, default="GENERAL")
+    earning_rate = models.CharField(max_length=10, choices=EARNING_RATE, default="1.9%")
     referrer = models.CharField(max_length=50, null=True, blank=True)
     wallet_address_used = models.CharField(max_length=150, help_text="User wallet address used for last withdrawal transaction", null=True, blank=True)
     bitcoin_address = models.CharField(max_length=150, help_text="User bitcoin wallet address for payment", null=True, blank=True)
     bitcoin_cash_address = models.CharField(max_length=150, help_text="User bitcoin cash wallet address for payment", null=True, blank=True)
     ethereum_address = models.CharField(max_length=150, help_text="User Ethereum wallet address for payment", null=True, blank=True)
-    perfect_money_address = models.CharField(max_length=150, help_text="User perfect money wallet address for payment", null=True, blank=True)
-    usdt_trc20_address = models.CharField(max_length=150, help_text="User usdt trc20 wallet address for payment", null=True, blank=True)
-    usdt_erc20_address = models.CharField(max_length=150, help_text="User usdt erc20 wallet address for payment", null=True, blank=True)
-    bnb_address = models.CharField(max_length=150, help_text="User BNB wallet address for payment", null=True, blank=True)
-    payeer_address = models.CharField(max_length=150, help_text="User PAYEER wallet address for payment", null=True, blank=True)
+    stellar_address = models.CharField(max_length=150, help_text="User Stellar wallet address for payment", null=True, blank=True)
+    litecoin_address = models.CharField(max_length=150, help_text="User LItecoin wallet address for payment", null=True, blank=True)
+
     last_coin_paid = models.CharField(max_length=50, choices=COIN_TYPE, help_text="The coin selected by the user during the last payment", null=True, blank=True, default="BITCOIN")
     class Meta:
         ordering = ['user']
@@ -280,7 +275,7 @@ class UserEarningRecord(models.Model):
     username = models.CharField(max_length=50)
     amount = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
     earning = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
-    percentage = models.CharField(max_length=10, default="2%")
+    percentage = models.CharField(max_length=10, default="1.9%")
     date = models.DateField(default=datetime.now) # For auto date add
 
     def __str__(self):

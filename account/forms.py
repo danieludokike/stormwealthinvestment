@@ -32,11 +32,9 @@ class UserRegistrationForm(GenericForm):
     bitcoin_address = forms.CharField(max_length=150, help_text="Your bitcoin wallet address", required=False)
     bitcoin_cash_address = forms.CharField(max_length=150, help_text="Your bitcoin cash wallet address", required=False)
     ethereum_address = forms.CharField(max_length=150, help_text="Your ethereum wallet address", required=False)
-    perfect_money_address = forms.CharField(max_length=150, help_text="Your perfect money wallet address", required=False)
-    usdt_trc20_address = forms.CharField(max_length=150, help_text="Your usdt trc20 wallet address", required=False)
-    usdt_erc20_address = forms.CharField(max_length=150, help_text="Your usdt erc20 wallet address", required=False)
-    bnb_address = forms.CharField(max_length=150, help_text="Your bnb wallet address", required=False)
-    payeer_address = forms.CharField(max_length=150, help_text="Your payeer wallet address", required=False)
+    stellar_address = forms.CharField(max_length=150, help_text="Your stellar wallet address", required=False)
+    litecoin_address = forms.CharField(max_length=150, help_text="Your litecoin wallet address", required=False)
+
     check_box = forms.BooleanField(required=True)
 
 
