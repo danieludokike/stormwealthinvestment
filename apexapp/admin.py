@@ -36,7 +36,7 @@ admin.site.register(CompanyYoutubeTubeVideo)
 admin.site.register(EmailUser)
 admin.site.register(UserEarningRecord)
 
-admin.site.site_header = "APEX GRANT INVESTMENT ADMINISTRATOR"
-admin.site.site_title = "Apexgrantinvestment"
-admin.site.site_url = "apexgrantinvestment.com"
+admin.site.site_header = "STORM WEALTH INVESTMENT ADMINISTRATOR"
+admin.site.site_title = "Stormwealthinvestment"
+admin.site.site_url = "stormwealthinvestment.com"
 
