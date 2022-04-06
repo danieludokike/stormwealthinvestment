@@ -139,8 +139,8 @@ def register_view(request):
         print(bitcoin_address)
         # CREATING USER PROFILE
         user_profile = UserProfile(user=user)
-        user_profile.plan_type = "MINOR"
-        user_profile.earning_rate = "2%"
+        user_profile.plan_type = "GENERAL"
+        user_profile.earning_rate = "1.9%"
         user_profile.bitcoin_address = bitcoin_address
         user_profile.bitcoin_cash_address = bitcoin_cash_address
         user_profile.ethereum_address = ethereum_address
