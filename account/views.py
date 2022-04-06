@@ -1017,7 +1017,7 @@ class UpdateWalletView(UpdateView):
     fields = (
         "bitcoin_address", "bitcoin_cash_address",
         "ethereum_address", "stellar_address",
-        "litcoin_address",
+        "litecoin_address",
         )
     
 
