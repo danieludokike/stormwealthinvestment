@@ -375,7 +375,7 @@ def deposit_view(request):
         coin_type = request.POST.get("last_coin_paid", None)
         amount = request.POST.get("amount", None).strip()
 
-        plan_types = ["GENERA", "TRILLER", "PRO", "EXPERT"]
+        plan_types = ["GENERAL", "TRILLER", "PRO", "EXPERT"]
         COIN_TYPE = ["BITCOIN", "BITCOIN CASH", "ETHEREUM", "STELLAR", "LITECOIN"]
 
         # CHECKING IF THE COIN SELECTED IS THE RIGHT ONE
@@ -494,7 +494,7 @@ def deposit_from_account_view(request):
             return HttpResponse("<h4 style='color: red;'>You did something wrong. Please start the process again.</h4>")
         
 
-        if plan_type not in ["GENERA", "TRILLER", "PRO", "EXPERT"]:
+        if plan_type not in ["GENERAL", "TRILLER", "PRO", "EXPERT"]:
             return HttpResponse("<h4 style='color: red;'>You did something wrong. Please start the process again.</h4>")
         
 
@@ -587,7 +587,7 @@ def process_deposit(request):
         except:
             return HttpResponse("<h4>You did something wrong. Please start the process again.</h4>")
 
-        if plan_type not in ["GENERA", "TRILLER", "PRO", "EXPERT"]:
+        if plan_type not in ["GENERAL", "TRILLER", "PRO", "EXPERT"]:
             return HttpResponse("<h4>You did something wrong. Please start the process again.</h4>")
 
         # SAVING THE WALLET ADDRESS USED FOR THE TRANSACTION
