@@ -339,6 +339,12 @@ def user_account_details(request):
                 if i == 5 and deposit > 0:
                     earning = int(5) * ((float(rate)/100) * (deposit))
                     add_user_earnings(request.user, deposit, earning, rate, payment_date+timedelta(days=int(5)))
+                if i == 6 and deposit > 0:
+                    earning = int(6) * ((float(rate)/100) * (deposit))
+                    add_user_earnings(request.user, deposit, earning, rate, payment_date+timedelta(days=int(6)))
+                if i == 7 and deposit > 0:
+                    earning = int(7) * ((float(rate)/100) * (deposit))
+                    add_user_earnings(request.user, deposit, earning, rate, payment_date+timedelta(days=int(7)))
         # FIRST 20 TRANSACTIONS OF THE USER
         transactions = TransactionRecord.objects.filter(username=request.user).order_by("-id")[:20]
 
@@ -467,7 +473,7 @@ def deposit_from_account_view(request):
         messages.error(request, f"You don't have any active balance accumulating or your balance is less than the minimum amount, $100.")
         return redirect("userdashboard:make_deposit")
 
-    if days >= 5 and user_deposit_tran.status == "APPROVED":
+    if days >= 7 and user_deposit_tran.status == "APPROVED":
         if acc_amount >= 100:
             can_withdraw = True
             plan_type = user_profile.plan_type
@@ -790,7 +796,7 @@ def request_withdrawal(request):
         registration_form = WalletSelectForm()
         return render(request, template, {"user_detail":user_profile, "transactions": user_deposit_tran, "form": registration_form})
     
-    # WHEN DAYS IS LESS THAN 5, BUT USER HAS ACCUMULATED PERCENTAGE INTEREST
+    # WHEN DAYS IS LESS THAN 7, BUT USER HAS ACCUMULATED PERCENTAGE INTEREST
     elif days < 7 and aval_amount > 0 and user_deposit_tran.status == "APPROVED":
         if request.method == "POST":
             amount_to_withdraw = request.POST.get("amount", None).strip()
