@@ -19,6 +19,7 @@ def home_view(request):
         "top_deposit": top_deposit,
         "top_withdraw": top_withdraw,
         "target": target,
+        "referrer": request.session.get('referrer', None),
     }
     return render(request, template, context)
 
