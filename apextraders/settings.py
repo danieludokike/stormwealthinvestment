@@ -27,7 +27,7 @@ SECRET_KEY = "23%/+|~`?^{}(!\><,.bb#kx9i^3$&n+z93#$fs=^6g*cw=cq*fxtn9or5wak4dbcy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1',]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'stormwealthinvestment.herokuapp.com', 'stormwealthinvestment.com', 'www.stormwealthinvestment.com']
 
 
 # Application definition
