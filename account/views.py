@@ -404,7 +404,7 @@ def deposit_view(request):
             return render(request, template, {"deposit_form": deposit_form})
         
         if plan_type.strip() == plan_types[0]:
-            if float(amount) < 50 or float(amount) > 999:
+            if float(amount) < 10 or float(amount) > 999:
                 messages.error(request, f"Please enter appropriate amount. {plan_types[0]} PLAN deposit range: [$100 - $999]")
                 return render(request, template, {"deposit_form": deposit_form})
 
