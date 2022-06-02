@@ -1,4 +1,5 @@
-# HEROKU MAIL FOR THIS ACCOUNT IS HEROKUHOST50@GMAIL.COM
+# HEROKU MAIL FOR THIS ACCOUNT IS chinonsostorm@gmail.com
+# PASSWORD: Nonso#$5sdfk
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.core.mail import send_mail

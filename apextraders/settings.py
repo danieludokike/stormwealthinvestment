@@ -27,7 +27,7 @@ SECRET_KEY = "23%/+|~`?^{}(!\><,.bb#kx9i^3$&n+z93#$fs=^6g*cw=cq*fxtn9or5wak4dbcy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'stormwealthinvestment.herokuapp.com', 'stormwealthinvestment.com', 'www.stormwealthinvestment.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'stormwealth-investment.herokuapp.com', 'stormwealthinvestment.com', 'www.stormwealthinvestment.com']
 
 
 # Application definition
@@ -185,7 +185,7 @@ if not DEBUG:
     # DJANGO SESSION SETTINGS 
     SESSION_SAVE_EVERY_REQUEST = True
     CSRF_COOKIE_SECURE = True
-    # SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
     # HSTS Settings
