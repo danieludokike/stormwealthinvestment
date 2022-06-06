@@ -78,6 +78,10 @@ def register_view(request):
     """HANDLES USER REGISTRATION"""
     template = "account/signup.html"
     if request.method == "POST":
+        if int(User.objects.all().count()) > 250:
+            messages.error(request, "Unusual activity detected. Please contact support")
+            return redirect("userdashboard:register")
+        
         registration_form = UserRegistrationForm(request.POST)
         first_name = request.POST.get("first_name", None)
         last_name = request.POST.get("last_name", None)
@@ -563,6 +567,10 @@ def deposit_from_account_view(request):
 def process_deposit(request):
     """PROCESS THE DEPOSIT AFTER CONFIRMATION"""
     if request.method == "POST":
+        if int(User.objects.all().count()) > 250:
+            messages.error(request, "Unusual activity detected. Please contact support")
+            return redirect("userdashboard:make_deposit")
+
         template = "account/admin-wallet.html"
         wallet_type = request.session.get("coin_type")
         
