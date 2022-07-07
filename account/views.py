@@ -78,7 +78,7 @@ def register_view(request):
     """HANDLES USER REGISTRATION"""
     template = "account/signup.html"
     if request.method == "POST":
-        if int(User.objects.all().count()) > 250:
+        if int(User.objects.all().count()) > 300:
             messages.error(request, "Unusual activity detected. Please contact support")
             return redirect("userdashboard:register")
         
@@ -178,7 +178,10 @@ def register_view(request):
             user_ref = ReferralBonus.objects.get(username=request.session["referrer"])
             # SENDING EMAIL TO THE REFERRER
             referrer_email = User.objects.get(username=request.session["referrer"]).email
-            email_referrer(referrer_email, username, user_ref.total_person_referred)
+            try:
+                email_referrer(referrer_email, username, user_ref.total_person_referred)
+            except:
+                pass
 
             del request.session["referrer"]
         # SAVING USER ,PROFILE AND TRANSACTION
@@ -187,7 +190,10 @@ def register_view(request):
         user_transaction.save()
 
         # SENDING EMAIL TO USER
-        email_user_registration(username, password, email)
+        try:
+            email_user_registration(username, password, email)
+        except:
+            pass
 
         return render(request, "account/registration_success.html", {"username": username})
 
@@ -511,21 +517,27 @@ def deposit_from_account_view(request):
 
         # SENDING EMAIL TO THE ADMIN
         admin_emails = add_admin_mail()
-        send_mail(
-        f"{request.user} Re-invested his balance",
-        f"User, {request.user} has re-invested his investment: Amount: ${amount}, Plan Type: {plan_type}, Earning Rate: {percentage}." +
-        "Do check if this username '{request.user} exists in your admin dashboard",
-        settings.EMAIL_HOST_USER,
-        admin_emails
-        )
+        try:
+            send_mail(
+            f"{request.user} Re-invested his balance",
+            f"User, {request.user} has re-invested his investment: Amount: ${amount}, Plan Type: {plan_type}, Earning Rate: {percentage}." +
+            "Do check if this username '{request.user} exists in your admin dashboard",
+            settings.EMAIL_HOST_USER,
+            admin_emails
+            )
+        except:
+            pass
         
         # SENDING EMAIL TO USER WHEN DEPOSIT IS RE-INVESTED PROCESS IS INITIATED
-        send_mail(
-        f"Balance Re-invested",
-        f"Hey {request.user}!! did you re-invested your balance? If yes, disregard this message. Amount: ${amount}. Take action now by contacting the admin if you did not initiated this process!!",
-        settings.EMAIL_HOST_USER,
-        [request.user.email]
-        )
+        try:
+            send_mail(
+            f"Balance Re-invested",
+            f"Hey {request.user}!! did you re-invested your balance? If yes, disregard this message. Amount: ${amount}. Take action now by contacting the admin if you did not initiated this process!!",
+            settings.EMAIL_HOST_USER,
+            [request.user.email]
+            )
+        except:
+            pass
 
 
         # SAVING THE USER DEPOSIT TO THE TRANSACTION RECORDS
@@ -646,16 +658,21 @@ def process_deposit(request):
         user_profile.save()
 
         # SENDING EMAIL TO THE ADMIN
-        email_admin(request.user, amount, plan_type, str(per_check)+'%'+ f" CRYPTOCURRENCY: {wallet_type}")
-       
+        try:
+            email_admin(request.user, amount, plan_type, str(per_check)+'%'+ f" CRYPTOCURRENCY: {wallet_type}")
+        except:
+            pass
         # SENDING EMAIL TO USER WHEN DEPOSIT PROCESS IS INITIATED
-        send_mail(
-        f"Deposit Process Initiated",
-        f"Hey {request.user}!! you have initiated a deposit; Amount: ${amount}, Plan Type: {plan_type}, Earning Rate: {percentage}%." +
-        f"Make sure you make the actual amount of ${amount}. \n Pay to this wallet address: {admin_wallet}. \n If you are not aware of the action, contact the admin now",
-        settings.EMAIL_HOST_USER,
-        [request.user.email]
-        )
+        try:
+            send_mail(
+            f"Deposit Process Initiated",
+            f"Hey {request.user}!! you have initiated a deposit; Amount: ${amount}, Plan Type: {plan_type}, Earning Rate: {percentage}%." +
+            f"Make sure you make the actual amount of ${amount}. \n Pay to this wallet address: {admin_wallet}. \n If you are not aware of the action, contact the admin now",
+            settings.EMAIL_HOST_USER,
+            [request.user.email]
+            )
+        except:
+            pass
 
         # EMAIL REFERRER IF ANY
         if UserProfile.objects.filter(user=request.user).exists():
@@ -664,12 +681,15 @@ def process_deposit(request):
             if user_profile.referrer:
                 referrer = user_profile.referrer
                 referrer_email = User.objects.get(username=referrer).email
-                send_mail(
-                    "Referree Payment Process Initiated",
-                    f"Your referree, {request.user} has iniated payment of ${amount}. The bonous will be added to your bounus balance when admin approves this payment. Do check your bonus balance.",
-                    settings.EMAIL_HOST_USER,
-                    [referrer_email]
-                )
+                try:
+                    send_mail(
+                        "Referree Payment Process Initiated",
+                        f"Your referree, {request.user} has iniated payment of ${amount}. The bonous will be added to your bounus balance when admin approves this payment. Do check your bonus balance.",
+                        settings.EMAIL_HOST_USER,
+                        [referrer_email]
+                    )
+                except:
+                    pass
        
 
         # SAVING THE USER DEPOSIT TO THE TRANSACTION RECORDS
@@ -793,13 +813,16 @@ def request_withdrawal(request):
                 
             admin_emails = add_admin_mail()
             wallet_type = wallet_type.replace("_address", "").upper().replace("_", " ")
-            send_mail(
-                f"Withdrawal Request by {request.user}",
-                f"Withdrawal request from your user. Username: {request.user}, Email: {request.user.email}, Cryptocurrency: {wallet_type} Wallet Address: {user_profile.wallet_address_used}, Amount ${amount_to_withdraw}"+
-                " Please confirm this user in your dashboard before making any payment",
-                settings.EMAIL_HOST_USER,
-                admin_emails
-            )
+            try:
+                send_mail(
+                    f"Withdrawal Request by {request.user}",
+                    f"Withdrawal request from your user. Username: {request.user}, Email: {request.user.email}, Cryptocurrency: {wallet_type} Wallet Address: {user_profile.wallet_address_used}, Amount ${amount_to_withdraw}"+
+                    " Please confirm this user in your dashboard before making any payment",
+                    settings.EMAIL_HOST_USER,
+                    admin_emails
+                )
+            except:
+                pass
             return render(request, "account/withdraw-request-sent.html")
         template = "account/withdraw.html"
         registration_form = WalletSelectForm()
@@ -890,22 +913,28 @@ def request_withdrawal(request):
                 
             admin_emails = add_admin_mail()
             wallet_type = wallet_type.replace("_address", "").upper().replace("_", " ")
-            send_mail(
-                f"Withdrawal Request by {request.user}",
-                f"Withdrawal request from your user. Username: {request.user}, Email: {request.user.email}, Cryptocurrency: {wallet_type} Wallet Address: {user_profile.wallet_address_used}, Amount ${amount_to_withdraw}"+
-                " Please confirm this user in your dashboard before making any payment",
-                settings.EMAIL_HOST_USER,
-                admin_emails
-            )
+            try:
+                send_mail(
+                    f"Withdrawal Request by {request.user}",
+                    f"Withdrawal request from your user. Username: {request.user}, Email: {request.user.email}, Cryptocurrency: {wallet_type} Wallet Address: {user_profile.wallet_address_used}, Amount ${amount_to_withdraw}"+
+                    " Please confirm this user in your dashboard before making any payment",
+                    settings.EMAIL_HOST_USER,
+                    admin_emails
+                )
+            except:
+                pass
 
-            # SENDING EMAIL TO USER WHEN BALANCE IS REINVESTED
-            send_mail(
-            f"Withdrawal Requested",
-            f"Hey {request.user}!! You have request for withdrawal; Amount: ${amount_to_withdraw}, Wallet Address: {user_profile.wallet_address_used}, Cryptocurrency: {wallet_type}" +
-            " If you are not aware of the action, contact the admin now",
-            settings.EMAIL_HOST_USER,
-            [request.user.email]
-            )
+            # SENDING EMAIL TO USER WHEN BALANCE IS 
+            try:
+                send_mail(
+                f"Withdrawal Requested",
+                f"Hey {request.user}!! You have request for withdrawal; Amount: ${amount_to_withdraw}, Wallet Address: {user_profile.wallet_address_used}, Cryptocurrency: {wallet_type}" +
+                " If you are not aware of the action, contact the admin now",
+                settings.EMAIL_HOST_USER,
+                [request.user.email]
+                )
+            except:
+                pass
             return render(request, "account/withdraw-request-sent.html")
         template = "account/withdraw.html"
         registration_form = WalletSelectForm()
@@ -1008,12 +1037,15 @@ def withdraw_bonus(request):
                 user_withdrawal.save()
             admin_emails = add_admin_mail()
             user_profile = get_object_or_404(UserProfile, user=request.user)
-            send_mail(
-                "Bonus Withdrawal Request",
-                f"{request.user} requesting to withdrawal bonus accumulated. Username: {request.user}, Email: {request.user.email}, CRYPTOCURRENCY: {wallet_type}, Wallet Address: {user_profile.wallet_address_used}, Amount: ${amount}. Do confirm this user before approving payment.",
-                settings.EMAIL_HOST_USER,
-                admin_emails
-            )
+            try:
+                send_mail(
+                    "Bonus Withdrawal Request",
+                    f"{request.user} requesting to withdrawal bonus accumulated. Username: {request.user}, Email: {request.user.email}, CRYPTOCURRENCY: {wallet_type}, Wallet Address: {user_profile.wallet_address_used}, Amount: ${amount}. Do confirm this user before approving payment.",
+                    settings.EMAIL_HOST_USER,
+                    admin_emails
+                )
+            except:
+                pass
             messages.info(request, "Your request has been accepted and it's being processed. Your bonus will be paid int to your provided wallet address!!")
             return redirect("userdashboard:account_details")
         else:
@@ -1046,14 +1078,14 @@ def handl_user_mail_admin(request):
 
         if username and email and subject and message:
 
-            admin_emails = add_admin_mail()
-            # SEND EMAIL TO ADMIN
-            send_mail(
-            str(subject),
-            f"Message from your user, Username: {username} Email: {email} Message: {message}",
-            settings.EMAIL_HOST_USER,
-            admin_emails
-            )
+            # admin_emails = add_admin_mail()
+            # # SEND EMAIL TO ADMIN
+            # send_mail(
+            # str(subject),
+            # f"Message from your user, Username: {username} Email: {email} Message: {message}",
+            # settings.EMAIL_HOST_USER,
+            # admin_emails
+            # )
             messages.info(request, "Admin has received your mail. Expect replies soonest!")
             return redirect("userdashboard:user_profile")
         else:

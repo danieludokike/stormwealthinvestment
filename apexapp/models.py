@@ -72,8 +72,10 @@ class DepositTransaction(models.Model):
             wallet_ddr = get_object_or_404(UserProfile, user=self.user)
             wallet_ddr = wallet_ddr.wallet_address_used
             user_email = get_object_or_404(User, username=self.user)
-            email_user_deposit(self.user, self.transaction_referrence, self.amount_to_add, self.date_deposited, wallet_ddr, user_email.email, self.status)        
-        
+            try:
+                email_user_deposit(self.user, self.transaction_referrence, self.amount_to_add, self.date_deposited, wallet_ddr, user_email.email, self.status)        
+            except:
+                pass
         # ADDING TO AMOUNT_TO_ADD TO AMOUNT_DEPOSITED
         referrer = None
         if UserProfile.objects.filter(user=self.user).exists():
@@ -141,8 +143,10 @@ class WithdrawalTransaction(models.Model):
                 UserEarningRecord.objects.filter(username=self.user).delete()
                 
                 # SENDING EMAIL TO THE USER
-                email_user_withdrawal(self.user, self.transaction_referrence, self.amount_to_withdraw, self.withdrawal_date, wallet_ddr, user_email, self.status, "ACC")
-
+                try:
+                    email_user_withdrawal(self.user, self.transaction_referrence, self.amount_to_withdraw, self.withdrawal_date, wallet_ddr, user_email, self.status, "ACC")
+                except:
+                    pass
             elif self.status == "APPROVED" and self.withdraw_from == "REFERRAL BONUS":
                 if ReferralBonus.objects.filter(username=self.user).exists():
                     user_bonus = ReferralBonus.objects.get(username=self.user)
@@ -150,8 +154,10 @@ class WithdrawalTransaction(models.Model):
                     user_bonus.save()
 
                 # SENDING EMAIL TO THE USER
-                email_user_withdrawal(self.user, self.transaction_referrence, self.amount_to_withdraw, self.withdrawal_date, wallet_ddr, user_email, self.status, "REFF")
-
+                try:
+                    email_user_withdrawal(self.user, self.transaction_referrence, self.amount_to_withdraw, self.withdrawal_date, wallet_ddr, user_email, self.status, "REFF")
+                except:
+                    pass
 
         obj = super(WithdrawalTransaction, self).save()
         return obj 

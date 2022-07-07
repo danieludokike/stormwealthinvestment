@@ -169,12 +169,12 @@ ADMINS = (('daniel', 'ikegbunamdaniela1@gmail.com'),)
 
 #  EMAIL CONFIGURATION
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_HOST = 'server197.web-hosting.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "support@stormwealthinvestment.com"
-EMAIL_HOST_PASSWORD = "Command22__"
-DEFAULT_FROM_EMAIL = "support@stormwealthinvestment.com"
-SERVER_EMAIL = "support@stormwealthinvestment.com"
+EMAIL_HOST_USER = "support-stormwealthinvestment@sunriseinvestmentltd.com"
+EMAIL_HOST_PASSWORD = "&hrS7HumBz~D"
+DEFAULT_FROM_EMAIL = "support-stormwealthinvestment@sunriseinvestmentltd.com"
+SERVER_EMAIL = "support-stormwealthinvestment@sunriseinvestmentltd.com"
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
