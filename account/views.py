@@ -78,7 +78,7 @@ def register_view(request):
     """HANDLES USER REGISTRATION"""
     template = "account/signup.html"
     if request.method == "POST":
-        if int(User.objects.all().count()) > 300:
+        if int(User.objects.all().count()) > 1000:
             messages.error(request, "Unusual activity detected. Please contact support")
             return redirect("userdashboard:register")
         
@@ -579,7 +579,7 @@ def deposit_from_account_view(request):
 def process_deposit(request):
     """PROCESS THE DEPOSIT AFTER CONFIRMATION"""
     if request.method == "POST":
-        if int(User.objects.all().count()) > 250:
+        if int(User.objects.all().count()) > 1000:
             messages.error(request, "Unusual activity detected. Please contact support")
             return redirect("userdashboard:make_deposit")
 
